@@ -31,22 +31,22 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: const Color(0xFFFFFBFE),
+      scaffoldBackgroundColor: backgroundColor,
 
       //* -- Visual Density
       visualDensity: VisualDensity.adaptivePlatformDensity,
 
       //* -- Appbar
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         centerTitle: true,
-        // elevation: 0,
-        // scrolledUnderElevation: 0,
-        // backgroundColor: blue,
-        // foregroundColor: white,
-        // titleTextStyle: boldTextStyle.copyWith(
-        //   fontSize: 18,
-        //   color: white,
-        // ),
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: white,
+        foregroundColor: white,
+        titleTextStyle: boldTextStyle.copyWith(
+          fontSize: 18,
+          color: white,
+        ),
       ),
 
       //* -- Tooltip
@@ -54,9 +54,9 @@ class AppTheme {
         textStyle: regularTextStyle.copyWith(
           color: const Color(0xFF1A1C1E),
         ),
-        decoration: BoxDecoration(
-          color: const Color(0xFFD8E6FF),
-          borderRadius: BorderRadius.circular(4),
+        decoration: const BoxDecoration(
+          color: Color(0xFFD8E6FF),
+          borderRadius: borderRadius4,
         ),
       ),
 
@@ -68,10 +68,10 @@ class AppTheme {
       ),
 
       //* -- Card Theme
-      cardTheme: CardThemeData(
+      cardTheme: const CardThemeData(
         elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: borderRadius12,
         ),
       ),
 
@@ -80,8 +80,8 @@ class AppTheme {
         style: FilledButton.styleFrom(
           backgroundColor: blue,
           foregroundColor: white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+          shape: const RoundedRectangleBorder(
+            borderRadius: borderRadius12,
           ),
         ),
       ),
@@ -91,19 +91,19 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: blue,
           foregroundColor: white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+          shape: const RoundedRectangleBorder(
+            borderRadius: borderRadius12,
           ),
         ),
       ),
 
       //* -- Input Decoration
-      inputDecorationTheme: InputDecorationTheme(
+      inputDecorationTheme: const InputDecorationTheme(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: borderRadius12,
         ),
         filled: true,
-        fillColor: const Color(0xFFF5F5F5),
+        fillColor: Color(0xFFF5F5F5),
       ),
 
       //* -- Text Theme

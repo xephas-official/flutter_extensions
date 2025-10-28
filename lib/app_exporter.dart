@@ -12,7 +12,7 @@ export 'package:uuid/uuid.dart';
 //* app
 export 'app/theme/exporter.dart';
 //* core
-export 'core/extensions/exporter.dart';
+export 'global/extensions/exporter.dart';
 //* data
 export 'data/models/exporter.dart';
 export 'data/repositories/exporter.dart';

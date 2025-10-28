@@ -1,4 +1,5 @@
 import '../../../app_exporter.dart';
+import '../../../global/widgets/value_chip.dart';
 
 /// Widget displaying a product card
 class ProductCard extends ConsumerWidget {
@@ -13,18 +14,24 @@ class ProductCard extends ConsumerWidget {
     final cartItems = ref.watch(cartProvider);
     final itemInCart = cartItems.any((item) => item.product.id == product.id);
 
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colorScheme.outlineVariant),
+    return AnimatedContainer(
+      duration: halfSecond,
+      // margin: verticalInsets8,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: itemInCart ? appGreen.withValues(alpha: .1) : white,
+        borderRadius: borderRadius12,
+        border: Border.all(
+          color: itemInCart ? appGreen : black.withValues(alpha: .2),
+          width: .8,
+        ),
       ),
       child: InkWell(
         onTap: () {
           // Could navigate to product details
           context.showSnackBar('Product details coming soon!');
         },
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: borderRadius12,
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
@@ -40,34 +47,12 @@ class ProductCard extends ConsumerWidget {
                       height: 80,
                       decoration: BoxDecoration(
                         color: context.colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: borderRadius12,
                       ),
                       alignment: Alignment.center,
                       child: Text(
                         product.imageUrl,
                         style: baseFont.copyWith(fontSize: 48),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 4,
-                    right: 4,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: context.colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        product.category.toUpperCase(),
-                        style: context.textTheme.labelSmall
-                            ?.copyWith(
-                              color: context.colorScheme.onPrimaryContainer,
-                            )
-                            .merge(boldTextStyle.copyWith(fontSize: 8)),
                       ),
                     ),
                   ),
@@ -104,6 +89,13 @@ class ProductCard extends ConsumerWidget {
                           .merge(regularTextStyle),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                    ),
+
+                    ValueChip(
+                      backColor: context.colorScheme.primaryContainer,
+                      valueText: product.category,
+                      fadeBack: false,
+                      textColor: context.colorScheme.onPrimaryContainer,
                     ),
 
                     const SizedBox(height: 8),

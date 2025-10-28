@@ -27,9 +27,10 @@ class CategoryFilters extends ConsumerWidget {
           final isFirst = index == 0;
           final isLast = index == (categories.length - 1);
 
-          final backColor = navyBlue.withValues(alpha: 0.1);
-          const selectedColor = navyBlue;
-          const textColor = white;
+          final backColor = black.withValues(alpha: 0.05);
+          const textColor = black;
+          const selectedColor = black;
+          const selectedTextColor = white;
 
           final enabledPadding = isSelected
               ? const EdgeInsets.symmetric(horizontal: 4)
@@ -48,7 +49,7 @@ class CategoryFilters extends ConsumerWidget {
             child: FilterChip(
               shape: StadiumBorder(
                 side: BorderSide(
-                  width: isSelected ? 2 : 0,
+                  width: isSelected ? 1 : 0,
                   color: isSelected ? selectedColor : backColor,
                 ),
               ),
@@ -57,14 +58,14 @@ class CategoryFilters extends ConsumerWidget {
               label: Text(
                 category,
                 style: semiBoldTextStyle.copyWith(
-                  color: isSelected ? textColor : selectedColor,
+                  color: isSelected ? selectedTextColor : textColor,
                   fontSize: 12,
                 ),
               ),
               backgroundColor: backColor,
               avatar: isSelected
                   ? const CircleAvatar(
-                      backgroundColor: textColor,
+                      backgroundColor: selectedTextColor,
                       child: Icon(
                         Icons.check,
                         size: 14,
@@ -74,6 +75,7 @@ class CategoryFilters extends ConsumerWidget {
                   : null,
               showCheckmark: false,
               selectedColor: selectedColor,
+
               selected: isSelected,
               onSelected: (selected) {
                 ref.read(selectedCategoryProvider.notifier).state = category;

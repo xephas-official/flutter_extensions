@@ -20,8 +20,14 @@ class ProductsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appColor,
-        title: const Text('Extensions Shop'),
+        // backgroundColor: appColor,
+        title: Text(
+          'Extensions Shop',
+          style: boldTextStyle.copyWith(
+            fontSize: 18,
+            color: black,
+          ),
+        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: CategoryFilters(
@@ -58,6 +64,9 @@ class ProductsScreen extends ConsumerWidget {
       ),
       floatingActionButton: itemCount > 0
           ? FloatingActionButton.extended(
+              shape: const StadiumBorder(),
+              backgroundColor: blue,
+              foregroundColor: white,
               onPressed: () {
                 context.push<void>(const CartScreen());
               },

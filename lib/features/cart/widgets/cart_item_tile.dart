@@ -22,7 +22,7 @@ class CartItemTile extends ConsumerWidget {
               height: 80,
               decoration: BoxDecoration(
                 color: context.colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: borderRadius12,
               ),
               alignment: Alignment.center,
               child: Text(

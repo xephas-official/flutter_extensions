@@ -35,52 +35,52 @@ const double spacing48 = 48;
 /// spacing 64 - extra-large spacing for major separations.
 const double spacing64 = 64;
 
-// Padding
+// Insets
 
-/// Horizontal padding with `spacing2` on both sides.
-const horizontalPadding2 = EdgeInsets.symmetric(horizontal: spacing2);
+/// Horizontal insets with `spacing2` on both sides.
+const horizontalInsets2 = EdgeInsets.symmetric(horizontal: spacing2);
 
-/// Horizontal padding with `spacing4` on both sides.
-const horizontalPadding4 = EdgeInsets.symmetric(horizontal: spacing4);
+/// Horizontal insets with `spacing4` on both sides.
+const horizontalInsets4 = EdgeInsets.symmetric(horizontal: spacing4);
 
-/// Horizontal padding with `spacing8` on both sides.
-const horizontalPadding8 = EdgeInsets.symmetric(horizontal: spacing8);
+/// Horizontal insets with `spacing8` on both sides.
+const horizontalInsets8 = EdgeInsets.symmetric(horizontal: spacing8);
 
-/// Horizontal padding with `spacing12` on both sides.
-const horizontalPadding12 = EdgeInsets.symmetric(horizontal: spacing12);
+/// Horizontal insets with `spacing12` on both sides.
+const horizontalInsets12 = EdgeInsets.symmetric(horizontal: spacing12);
 
-/// Horizontal padding with `spacing16` on both sides.
-const horizontalPadding16 = EdgeInsets.symmetric(horizontal: spacing16);
+/// Horizontal insets with `spacing16` on both sides.
+const horizontalInsets16 = EdgeInsets.symmetric(horizontal: spacing16);
 
-/// Horizontal padding with `spacing24` on both sides.
-const horizontalPadding24 = EdgeInsets.symmetric(horizontal: spacing24);
+/// Horizontal insets with `spacing24` on both sides.
+const horizontalInsets24 = EdgeInsets.symmetric(horizontal: spacing24);
 
-/// Vertical padding with `spacing2` on top and bottom.
-const verticalPadding2 = EdgeInsets.symmetric(vertical: spacing2);
+/// Vertical insets with `spacing2` on top and bottom.
+const verticalInsets2 = EdgeInsets.symmetric(vertical: spacing2);
 
-/// Vertical padding with `spacing4` on top and bottom.
-const verticalPadding4 = EdgeInsets.symmetric(vertical: spacing4);
+/// Vertical insets with `spacing4` on top and bottom.
+const verticalInsets4 = EdgeInsets.symmetric(vertical: spacing4);
 
-/// Vertical padding with `spacing8` on top and bottom.
-const verticalPadding8 = EdgeInsets.symmetric(vertical: spacing8);
+/// Vertical insets with `spacing8` on top and bottom.
+const verticalInsets8 = EdgeInsets.symmetric(vertical: spacing8);
 
-/// Vertical padding with `spacing12` on top and bottom.
-const verticalPadding12 = EdgeInsets.symmetric(vertical: spacing12);
+/// Vertical insets with `spacing12` on top and bottom.
+const verticalInsets12 = EdgeInsets.symmetric(vertical: spacing12);
 
-/// Vertical padding with `spacing16` on top and bottom.
-const verticalPadding16 = EdgeInsets.symmetric(vertical: spacing16);
+/// Vertical insets with `spacing16` on top and bottom.
+const verticalInsets16 = EdgeInsets.symmetric(vertical: spacing16);
 
-/// Vertical padding with `spacing24` on top and bottom.
-const verticalPadding24 = EdgeInsets.symmetric(vertical: spacing24);
+/// Vertical insets with `spacing24` on top and bottom.
+const verticalInsets24 = EdgeInsets.symmetric(vertical: spacing24);
 
-/// Padding with `spacing8` on all sides.
-const allPadding8 = EdgeInsets.all(spacing8);
+/// Insets with `spacing8` on all sides.
+const allInsets8 = EdgeInsets.all(spacing8);
 
-/// Padding with `spacing12` on all sides.
-const allPadding12 = EdgeInsets.all(spacing12);
+/// Insets with `spacing12` on all sides.
+const allInsets12 = EdgeInsets.all(spacing12);
 
-/// Padding with `spacing16` on all sides.
-const allPadding16 = EdgeInsets.all(spacing16);
+/// Insets with `spacing16` on all sides.
+const allInsets16 = EdgeInsets.all(spacing16);
 
-/// Padding with `spacing24` on all sides.
-const allPadding24 = EdgeInsets.all(spacing24);
+/// Insets with `spacing24` on all sides.
+const allInsets24 = EdgeInsets.all(spacing24);
