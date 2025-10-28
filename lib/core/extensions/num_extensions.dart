@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../../app_exporter.dart';
 
 /// Number extensions for common operations
 extension NumExtensions on num {

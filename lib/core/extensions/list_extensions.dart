@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import '../../app_exporter.dart';
 
-/// List extensions for common operations
-extension ListExtensions<T> on List<T> {
+/// List extensions for UI creation
+extension ListWidgetExtensions on List<Widget> {
   /// Returns true if list is null or empty
   bool get isNullOrEmpty => isEmpty;
 
@@ -9,15 +9,15 @@ extension ListExtensions<T> on List<T> {
   bool get isNotNullOrEmpty => isNotEmpty;
 
   /// Returns first element or null if empty
-  T? get firstOrNull => isEmpty ? null : first;
+  Widget? get firstOrNull => isEmpty ? null : first;
 
   /// Returns last element or null if empty
-  T? get lastOrNull => isEmpty ? null : last;
+  Widget? get lastOrNull => isEmpty ? null : last;
 
   /// Divides list items with a separator
-  List<T> divide(T separator) {
+  List<Widget> divide(Widget separator) {
     if (isEmpty) return this;
-    final result = <T>[];
+    final result = <Widget>[];
     for (var i = 0; i < length; i++) {
       result.add(this[i]);
       if (i < length - 1) result.add(separator);

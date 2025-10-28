@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../../app_exporter.dart';
 
 /// BuildContext extensions for easier access to common properties
 extension ContextExtensions on BuildContext {

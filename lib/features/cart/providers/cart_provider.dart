@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../app_exporter.dart';
 import '../../../data/models/exporter.dart';
 
 /// Cart state notifier

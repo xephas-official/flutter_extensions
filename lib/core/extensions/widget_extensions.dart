@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../../app_exporter.dart';
 
 /// Widget extensions for common modifications
 extension WidgetExtensions on Widget {

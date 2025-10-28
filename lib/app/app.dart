@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../app_exporter.dart';
 import '../features/products/products_screen.dart';
 import 'theme/exporter.dart';
 

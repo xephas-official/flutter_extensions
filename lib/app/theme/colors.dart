@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../../app_exporter.dart';
 
 /// Primary blue color
 const Color blue = Color(0xFF0058AB);

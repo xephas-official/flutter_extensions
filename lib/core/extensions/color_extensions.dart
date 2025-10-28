@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import '../../app_exporter.dart';
 
-/// Color extensions for common color operations
+/// Color extensions for common manipulations
 extension ColorExtensions on Color {
   /// Returns a lighter shade of this color
   Color get lighter {

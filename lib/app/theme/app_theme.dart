@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-
+import '../../app_exporter.dart';
 import 'colors.dart';
 
 /// Application theme configuration with blue color scheme

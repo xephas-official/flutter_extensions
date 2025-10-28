@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../../../app_exporter.dart';
 import '../../../core/extensions/exporter.dart';
 
 /// Widget displayed when cart is empty
