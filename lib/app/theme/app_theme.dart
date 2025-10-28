@@ -37,16 +37,16 @@ class AppTheme {
       visualDensity: VisualDensity.adaptivePlatformDensity,
 
       //* -- Appbar
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         centerTitle: true,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        backgroundColor: blue,
-        foregroundColor: white,
-        titleTextStyle: boldTextStyle.copyWith(
-          fontSize: 18,
-          color: white,
-        ),
+        // elevation: 0,
+        // scrolledUnderElevation: 0,
+        // backgroundColor: blue,
+        // foregroundColor: white,
+        // titleTextStyle: boldTextStyle.copyWith(
+        //   fontSize: 18,
+        //   color: white,
+        // ),
       ),
 
       //* -- Tooltip

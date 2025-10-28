@@ -20,11 +20,11 @@ class ProductsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: appColor,
         title: const Text('Extensions Shop'),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(0),
-          child: // Category filter chips
-          CategoryFilters(
+          preferredSize: const Size.fromHeight(50),
+          child: CategoryFilters(
             categories: categories,
             selectedCategory: selectedCategory,
           ),
