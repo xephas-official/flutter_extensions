@@ -51,8 +51,7 @@ class ProductsScreen extends ConsumerWidget {
                   vertical: 8,
                 ),
                 itemCount: filteredProducts.length,
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 12),
+                separatorBuilder: (context, index) => const Spacing(of: 12),
                 itemBuilder: (context, index) {
                   return ProductCard(product: filteredProducts[index]);
                 },

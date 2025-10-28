@@ -14,7 +14,13 @@ class CartScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shopping Cart'),
+        title: Text(
+          'Shopping Cart',
+          style: boldTextStyle.copyWith(
+            fontSize: 18,
+            color: black,
+          ),
+        ),
         actions: [
           if (cartItems.isNotEmpty)
             IconButton(
@@ -49,9 +55,10 @@ class CartScreen extends ConsumerWidget {
       ),
       body: cartItems.isEmpty
           ? const EmptyCart()
-          : ListView.builder(
+          : ListView.separated(
               padding: const EdgeInsets.all(16),
               itemCount: cartItems.length,
+              separatorBuilder: (context, index) => const Spacing(of: 12),
               itemBuilder: (context, index) {
                 return CartItemTile(item: cartItems[index]);
               },
@@ -60,14 +67,14 @@ class CartScreen extends ConsumerWidget {
           ? null
           : Container(
               decoration: BoxDecoration(
-                color: context.colorScheme.surface,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, -2),
-                  ),
-                ],
+                color: context.colorScheme.primaryContainer,
+                borderRadius: const BorderRadius.only(
+                  topLeft: circularRadius8,
+                  topRight: circularRadius8,
+                ),
+                border: const Border(
+                  top: BorderSide(color: appColor),
+                ),
               ),
               padding: const EdgeInsets.all(16),
               child: SafeArea(
@@ -121,7 +128,7 @@ class CartScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16),
+                    const Spacing(of: 16),
                     SizedBox(
                       width: double.infinity,
                       height: 50,

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../app_exporter.dart';
-import '../../../global/widgets/value_chip.dart';
 
 /// Widget displaying a product card
 class ProductCard extends ConsumerWidget {
@@ -31,7 +30,7 @@ class ProductCard extends ConsumerWidget {
       child: InkWell(
         onTap: () {
           // Could navigate to product details
-          context.showSnackBar('Product details coming soon!');
+          // context.showSnackBar('Product details coming soon!');
         },
         borderRadius: borderRadius12,
         child: Padding(
@@ -40,28 +39,24 @@ class ProductCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Product image (emoji) with category badge overlay
-              Stack(
-                children: [
-                  Hero(
-                    tag: 'product_${product.id}',
-                    child: Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: context.colorScheme.surfaceContainerHighest,
-                        borderRadius: borderRadius12,
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        product.imageUrl,
-                        style: baseFont.copyWith(fontSize: 48),
-                      ),
-                    ),
+              Hero(
+                tag: 'product_${product.id}',
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.surfaceContainerHighest,
+                    borderRadius: borderRadius12,
                   ),
-                ],
+                  alignment: Alignment.center,
+                  child: Text(
+                    product.imageUrl,
+                    style: baseFont.copyWith(fontSize: 48),
+                  ),
+                ),
               ),
 
-              const SizedBox(width: 12),
+              const Spacing(of: 12),
 
               // Product details (name, description, price)
               Expanded(
@@ -79,7 +74,7 @@ class ProductCard extends ConsumerWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
 
-                    const SizedBox(height: 4),
+                    const Spacing(of: 4),
 
                     // Product description
                     Text(
@@ -93,21 +88,25 @@ class ProductCard extends ConsumerWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
 
+                    const Spacing(of: 8),
+
                     ValueChip(
-                      backColor: context.colorScheme.primaryContainer,
+                      backColor: black.withValues(alpha: .1),
                       valueText: product.category,
                       fadeBack: false,
-                      textColor: context.colorScheme.onPrimaryContainer,
+                      textColor: black,
                     ),
 
-                    const SizedBox(height: 8),
+                    const Spacing(of: 8),
 
                     // Price
                     Text(
                       product.price.toCurrency,
                       style: context.textTheme.titleLarge
                           ?.copyWith(
-                            color: context.colorScheme.primary,
+                            color: itemInCart
+                                ? appGreen
+                                : context.colorScheme.primary,
                           )
                           .merge(boldTextStyle),
                     ),
@@ -115,7 +114,7 @@ class ProductCard extends ConsumerWidget {
                 ),
               ),
 
-              const SizedBox(width: 12),
+              const Spacing(of: 12),
 
               // Add to cart button
               Column(
@@ -129,11 +128,11 @@ class ProductCard extends ConsumerWidget {
                         ref
                             .read(cartProvider.notifier)
                             .removeProduct(product.id);
-                        context.showSnackBar('Removed from cart');
+                        // context.showSnackBar('Removed from cart');
                       } else {
                         // Add to cart
                         ref.read(cartProvider.notifier).addProduct(product);
-                        context.showSnackBar('Added to cart!');
+                        // context.showSnackBar('Added to cart!');
                       }
                     },
                     splashColor: itemInCart ? appGreen : black,

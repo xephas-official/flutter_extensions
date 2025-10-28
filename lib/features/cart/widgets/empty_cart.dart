@@ -19,14 +19,14 @@ class EmptyCart extends StatelessWidget {
             padding: const EdgeInsets.all(40),
             child: const Icon(Icons.shopping_cart_outlined, size: 120),
           ),
-          const SizedBox(height: 24),
+          const Spacing(of: 24),
           Text(
             'Your cart is empty',
             style: context.textTheme.headlineSmall?.merge(
               boldTextStyle,
             ),
           ),
-          const SizedBox(height: 8),
+          const Spacing(of: 8),
           Text(
             'Add some products to get started',
             style: context.textTheme.bodyLarge

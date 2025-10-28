@@ -42,10 +42,10 @@ class AppTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         backgroundColor: white,
-        foregroundColor: white,
+        foregroundColor: black,
         titleTextStyle: boldTextStyle.copyWith(
           fontSize: 18,
-          color: white,
+          color: black,
         ),
       ),
 
