@@ -102,22 +102,21 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
 
           const SizedBox(height: 16),
 
-          // Products grid
+          // Products list (inventory-style)
           if (filteredProducts.isEmpty)
             const Expanded(
               child: Center(child: Text('No products in this category')),
             )
           else
             Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.all(16),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: context.screenWidth > 600 ? 3 : 2,
-                  childAspectRatio: 0.7,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
                 ),
                 itemCount: filteredProducts.length,
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   return ProductCard(product: filteredProducts[index]);
                 },
