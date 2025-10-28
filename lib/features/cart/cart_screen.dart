@@ -1,10 +1,9 @@
 import '../../app_exporter.dart';
-import '../../core/extensions/exporter.dart';
-import 'providers/exporter.dart';
 import 'widgets/exporter.dart';
 
 /// Shopping cart screen
 class CartScreen extends ConsumerWidget {
+  /// Constructor
   const CartScreen({super.key});
 
   @override
@@ -21,7 +20,7 @@ class CartScreen extends ConsumerWidget {
             IconButton(
               icon: const Icon(Icons.delete_outline),
               onPressed: () {
-                showDialog(
+                showDialog<void>(
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Clear Cart'),
@@ -30,13 +29,13 @@ class CartScreen extends ConsumerWidget {
                     ),
                     actions: [
                       TextButton(
-                        onPressed: () => context.pop(),
+                        onPressed: () => context.pop<void>(),
                         child: const Text('Cancel'),
                       ),
                       TextButton(
                         onPressed: () {
                           ref.read(cartProvider.notifier).clearCart();
-                          context.pop();
+                          context.pop<void>();
                         },
                         child: const Text('Clear'),
                       ),

@@ -1,19 +1,22 @@
 import '../../../app_exporter.dart';
-import '../../../app/theme/colors.dart';
-import '../providers/category_provider.dart';
 
+/// Widget for displaying category filters as chips
 class CategoryFilters extends ConsumerWidget {
+  /// Constructor
   const CategoryFilters({
-    super.key,
     required this.categories,
     required this.selectedCategory,
+    super.key,
   });
 
+  /// List of categories to display
   final List<String> categories;
+
+  /// Currently selected category
   final String selectedCategory;
 
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       height: kToolbarHeight,
       alignment: Alignment.center,
@@ -28,7 +31,7 @@ class CategoryFilters extends ConsumerWidget {
             final isFirst = index == 0;
             final isLast = index == (categories.length - 1);
 
-            final backColor = navyBlue.withOpacity(0.1);
+            final backColor = navyBlue.withValues(alpha: 0.1);
             const selectedColor = navyBlue;
             const textColor = Colors.white;
 

@@ -1,8 +1,8 @@
 import '../../../app_exporter.dart';
-import '../../../core/extensions/exporter.dart';
 
 /// Widget displayed when cart is empty
 class EmptyCart extends StatelessWidget {
+  /// Constructor
   const EmptyCart({super.key});
 
   @override

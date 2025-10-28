@@ -1,5 +1,6 @@
 /// Represents a product in the shopping cart
 class Product {
+  /// Constructor
   const Product({
     required this.id,
     required this.name,
@@ -8,13 +9,6 @@ class Product {
     required this.imageUrl,
     this.category = 'General',
   });
-
-  final String id;
-  final String name;
-  final String description;
-  final double price;
-  final String imageUrl;
-  final String category;
 
   /// Factory constructor to create a Product from a map
   factory Product.fromMap(Map<String, dynamic> map) {
@@ -27,6 +21,24 @@ class Product {
       category: map['category'] as String? ?? 'General',
     );
   }
+
+  /// Unique identifier for the product
+  final String id;
+
+  /// Name of the product
+  final String name;
+
+  /// Description of the product
+  final String description;
+
+  /// Price of the product
+  final double price;
+
+  /// Image URL of the product
+  final String imageUrl;
+
+  /// Category of the product
+  final String category;
 
   /// Converts Product to map
   Map<String, dynamic> toMap() {
@@ -63,14 +75,4 @@ class Product {
   String toString() {
     return 'Product(id: $id, name: $name, price: $price)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Product && other.id == id;
-  }
-
-  @override
-  int get hashCode => id.hashCode;
 }

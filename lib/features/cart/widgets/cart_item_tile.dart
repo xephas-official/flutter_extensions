@@ -1,12 +1,11 @@
 import '../../../app_exporter.dart';
-import '../../../core/extensions/exporter.dart';
-import '../../../data/models/exporter.dart';
-import '../providers/exporter.dart';
 
 /// Widget displaying a single cart item
 class CartItemTile extends ConsumerWidget {
+  /// Constructor
   const CartItemTile({required this.item, super.key});
 
+  /// Cart item to display
   final CartItem item;
 
   @override
@@ -16,7 +15,6 @@ class CartItemTile extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Product image (emoji)
             Container(

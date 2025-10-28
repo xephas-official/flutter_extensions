@@ -1,13 +1,10 @@
 import '../../app_exporter.dart';
-import '../../core/extensions/exporter.dart';
-import '../../data/repositories/exporter.dart';
-import '../cart/providers/exporter.dart';
 import '../cart/cart_screen.dart';
-import 'providers/exporter.dart';
 import 'widgets/exporter.dart';
 
 /// Products listing screen
 class ProductsScreen extends ConsumerWidget {
+  /// Constructor
   const ProductsScreen({super.key});
 
   @override
@@ -25,7 +22,7 @@ class ProductsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Extensions Shop'),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(0),
+          preferredSize: const Size.fromHeight(0),
           child: // Category filter chips
           CategoryFilters(
             categories: categories,
@@ -62,7 +59,7 @@ class ProductsScreen extends ConsumerWidget {
       floatingActionButton: itemCount > 0
           ? FloatingActionButton.extended(
               onPressed: () {
-                context.push(const CartScreen());
+                context.push<void>(const CartScreen());
               },
               icon: const Icon(Icons.shopping_cart),
               label: Text('View Cart ($itemCount)'),

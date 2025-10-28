@@ -1,1 +1,16 @@
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  plugins:
+    - custom_lint
+
+linter:
+  rules:
+    prefer_relative_imports: true
+    prefer_const_constructors: true
+    always_use_package_imports: false
+    lines_longer_than_80_chars: false
+    flutter_style_todos: false
+    sort_pub_dependencies: false
+    avoid_web_libraries_in_flutter: true
+    unawaited_futures: true

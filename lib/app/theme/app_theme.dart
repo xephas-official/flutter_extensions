@@ -1,5 +1,4 @@
 import '../../app_exporter.dart';
-import 'colors.dart';
 
 /// Application theme configuration with blue color scheme
 class AppTheme {
@@ -7,7 +6,6 @@ class AppTheme {
   static ThemeData get lightTheme {
     const colorScheme = ColorScheme.light(
       primary: blue,
-      onPrimary: Color(0xFFFFFFFF),
       primaryContainer: Color(0xFFD8E6FF),
       onPrimaryContainer: navyBlue,
       secondary: Color(0xFF535F71),
@@ -17,7 +15,6 @@ class AppTheme {
       tertiary: Color(0xFF6B5778),
       onTertiary: Color(0xFFFFFFFF),
       error: Color(0xFFBA1A1A),
-      onError: Color(0xFFFFFFFF),
       surface: Color(0xFFFFFBFE),
       onSurface: Color(0xFF1A1C1E),
       surfaceContainerHighest: Color(0xFFE1E2E5),
@@ -40,7 +37,7 @@ class AppTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: blue,
-          foregroundColor: Color(0xFFFFFFFF),
+          foregroundColor: const Color(0xFFFFFFFF),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -49,7 +46,7 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: blue,
-          foregroundColor: Color(0xFFFFFFFF),
+          foregroundColor: const Color(0xFFFFFFFF),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -58,7 +55,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         filled: true,
-        fillColor: Color(0xFFF5F5F5),
+        fillColor: const Color(0xFFF5F5F5),
       ),
     );
   }

@@ -1,12 +1,11 @@
 import '../../../app_exporter.dart';
-import '../../../core/extensions/exporter.dart';
-import '../../../data/models/exporter.dart';
-import '../../cart/providers/exporter.dart';
 
 /// Widget displaying a product card
 class ProductCard extends ConsumerWidget {
+  /// Constructor
   const ProductCard({required this.product, super.key});
 
+  /// Product to display
   final Product product;
 
   @override
@@ -18,7 +17,7 @@ class ProductCard extends ConsumerWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colorScheme.outlineVariant, width: 1),
+        side: BorderSide(color: context.colorScheme.outlineVariant),
       ),
       child: InkWell(
         onTap: () {
