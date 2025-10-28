@@ -45,7 +45,7 @@ class ProductCard extends ConsumerWidget {
                       alignment: Alignment.center,
                       child: Text(
                         product.imageUrl,
-                        style: const TextStyle(fontSize: 48),
+                        style: baseFont.copyWith(fontSize: 48),
                       ),
                     ),
                   ),
@@ -63,11 +63,11 @@ class ProductCard extends ConsumerWidget {
                       ),
                       child: Text(
                         product.category.toUpperCase(),
-                        style: context.textTheme.labelSmall?.copyWith(
-                          color: context.colorScheme.onPrimaryContainer,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 8,
-                        ),
+                        style: context.textTheme.labelSmall
+                            ?.copyWith(
+                              color: context.colorScheme.onPrimaryContainer,
+                            )
+                            .merge(boldTextStyle.copyWith(fontSize: 8)),
                       ),
                     ),
                   ),
@@ -85,8 +85,8 @@ class ProductCard extends ConsumerWidget {
                     // Product name
                     Text(
                       product.name,
-                      style: context.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
+                      style: context.textTheme.titleMedium?.merge(
+                        boldTextStyle,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -97,9 +97,11 @@ class ProductCard extends ConsumerWidget {
                     // Product description
                     Text(
                       product.description,
-                      style: context.textTheme.bodySmall?.copyWith(
-                        color: context.colorScheme.onSurfaceVariant,
-                      ),
+                      style: context.textTheme.bodySmall
+                          ?.copyWith(
+                            color: context.colorScheme.onSurfaceVariant,
+                          )
+                          .merge(regularTextStyle),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -109,10 +111,11 @@ class ProductCard extends ConsumerWidget {
                     // Price
                     Text(
                       product.price.toCurrency,
-                      style: context.textTheme.titleLarge?.copyWith(
-                        color: context.colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.textTheme.titleLarge
+                          ?.copyWith(
+                            color: context.colorScheme.primary,
+                          )
+                          .merge(boldTextStyle),
                     ),
                   ],
                 ),

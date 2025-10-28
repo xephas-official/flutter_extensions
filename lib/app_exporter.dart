@@ -3,6 +3,8 @@
 export 'package:flutter/material.dart';
 // Flutter Riverpod (State Management)
 export 'package:flutter_riverpod/flutter_riverpod.dart';
+// Google Fonts
+export 'package:google_fonts/google_fonts.dart';
 // UUID
 export 'package:uuid/uuid.dart';
 

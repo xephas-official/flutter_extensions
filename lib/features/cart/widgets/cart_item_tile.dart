@@ -27,7 +27,7 @@ class CartItemTile extends ConsumerWidget {
               alignment: Alignment.center,
               child: Text(
                 item.product.imageUrl,
-                style: const TextStyle(fontSize: 48),
+                style: baseFont.copyWith(fontSize: 48),
               ),
             ),
 
@@ -40,26 +40,29 @@ class CartItemTile extends ConsumerWidget {
                 children: [
                   Text(
                     item.product.name,
-                    style: context.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+                    style: context.textTheme.titleMedium?.merge(
+                      boldTextStyle,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     item.product.description,
-                    style: context.textTheme.bodySmall?.copyWith(
-                      color: context.colorScheme.onSurfaceVariant,
-                    ),
+                    style: context.textTheme.bodySmall
+                        ?.copyWith(
+                          color: context.colorScheme.onSurfaceVariant,
+                        )
+                        .merge(regularTextStyle),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     item.product.price.toCurrency,
-                    style: context.textTheme.titleMedium?.copyWith(
-                      color: context.colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.textTheme.titleMedium
+                        ?.copyWith(
+                          color: context.colorScheme.primary,
+                        )
+                        .merge(boldTextStyle),
                   ),
                 ],
               ),
@@ -88,8 +91,8 @@ class CartItemTile extends ConsumerWidget {
                   child: Center(
                     child: Text(
                       '${item.quantity}',
-                      style: context.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
+                      style: context.textTheme.titleLarge?.merge(
+                        boldTextStyle,
                       ),
                     ),
                   ),

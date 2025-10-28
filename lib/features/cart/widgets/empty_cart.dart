@@ -22,16 +22,18 @@ class EmptyCart extends StatelessWidget {
           const SizedBox(height: 24),
           Text(
             'Your cart is empty',
-            style: context.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
+            style: context.textTheme.headlineSmall?.merge(
+              boldTextStyle,
             ),
           ),
           const SizedBox(height: 8),
           Text(
             'Add some products to get started',
-            style: context.textTheme.bodyLarge?.copyWith(
-              color: context.colorScheme.onSurfaceVariant,
-            ),
+            style: context.textTheme.bodyLarge
+                ?.copyWith(
+                  color: context.colorScheme.onSurfaceVariant,
+                )
+                .merge(regularTextStyle),
             textAlign: TextAlign.center,
           ),
         ],

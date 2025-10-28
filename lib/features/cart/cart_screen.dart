@@ -82,14 +82,17 @@ class CartScreen extends ConsumerWidget {
                             children: [
                               Text(
                                 'Total Items',
-                                style: context.textTheme.bodyMedium?.copyWith(
-                                  color: context.colorScheme.onSurfaceVariant,
-                                ),
+                                style: context.textTheme.bodyMedium
+                                    ?.copyWith(
+                                      color:
+                                          context.colorScheme.onSurfaceVariant,
+                                    )
+                                    .merge(regularTextStyle),
                               ),
                               Text(
                                 '$itemCount',
-                                style: context.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
+                                style: context.textTheme.titleMedium?.merge(
+                                  boldTextStyle,
                                 ),
                               ),
                             ],
@@ -100,16 +103,19 @@ class CartScreen extends ConsumerWidget {
                           children: [
                             Text(
                               'Total',
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                color: context.colorScheme.onSurfaceVariant,
-                              ),
+                              style: context.textTheme.bodyMedium
+                                  ?.copyWith(
+                                    color: context.colorScheme.onSurfaceVariant,
+                                  )
+                                  .merge(regularTextStyle),
                             ),
                             Text(
                               totalPrice.toCurrency,
-                              style: context.textTheme.headlineSmall?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: context.colorScheme.primary,
-                              ),
+                              style: context.textTheme.headlineSmall
+                                  ?.copyWith(
+                                    color: context.colorScheme.primary,
+                                  )
+                                  .merge(boldTextStyle),
                             ),
                           ],
                         ),

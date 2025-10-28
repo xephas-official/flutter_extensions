@@ -8,11 +8,28 @@ class ShoppingCartApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final appTheme = ref.watch(appThemeProvider);
+
     return MaterialApp(
-      title: 'Flutter Extensions Demo',
+      // -- Theme --
+      color: appColor,
+      theme: appTheme,
+
+      // -- Title --
+      title: appTitle,
+      restorationScopeId: appId,
+
+      // -- Debug Mode --
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+
+      // -- Home Screen --
       home: const ProductsScreen(),
+
+      // -- Bouncing Scroll Behavior --
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        physics: const BouncingScrollPhysics(),
+        scrollbars: false,
+      ),
     );
   }
 }

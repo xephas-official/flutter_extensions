@@ -60,10 +60,9 @@ class CategoryFilters extends ConsumerWidget {
                 tooltip: category,
                 label: Text(
                   category,
-                  style: TextStyle(
+                  style: semiBoldTextStyle.copyWith(
                     color: isSelected ? textColor : selectedColor,
                     fontSize: 12,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 backgroundColor: backColor,
