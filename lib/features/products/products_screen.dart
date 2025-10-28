@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/extensions/exporter.dart';
-import '../../../data/repositories/exporter.dart';
-import '../../cart/data/providers/exporter.dart';
-import '../../cart/presentation/cart_screen.dart';
+import '../../core/extensions/exporter.dart';
+import '../../data/repositories/exporter.dart';
+import '../cart/providers/exporter.dart';
+import '../cart/cart_screen.dart';
 import 'widgets/exporter.dart';
 
 /// Products listing screen

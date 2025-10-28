@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../features/products/presentation/products_screen.dart';
+import '../features/products/products_screen.dart';
 import 'theme/exporter.dart';
 
 /// Main application widget

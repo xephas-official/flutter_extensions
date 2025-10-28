@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/extensions/exporter.dart';
+import '../../../core/extensions/exporter.dart';
 
 /// Widget displayed when cart is empty
 class EmptyCart extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../data/models/exporter.dart';
+import '../../../data/models/exporter.dart';
 
 /// Cart state notifier
 class CartNotifier extends StateNotifier<List<CartItem>> {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/extensions/exporter.dart';
-import '../../../../data/models/exporter.dart';
-import '../../../cart/data/providers/exporter.dart';
+import '../../../core/extensions/exporter.dart';
+import '../../../data/models/exporter.dart';
+import '../../cart/providers/exporter.dart';
 
 /// Widget displaying a product card
 class ProductCard extends ConsumerWidget {
