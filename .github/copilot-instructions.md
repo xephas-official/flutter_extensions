@@ -32,17 +32,19 @@ This is a **training/educational Flutter project** demonstrating Dart extension 
 ## Architecture Overview
 
 **Feature-Driven Structure** with extension-first API design:
-- `lib/core/extensions/` - **Central pattern**: All 6 extension categories (context, widget, num, list, string, color)
+- `lib/global/extensions/` - **Central pattern**: All 6 extension categories (context, widget, num, list, string, color)
+- `lib/global/constants/` - Centralized constants (spacing, border_radius, colors, durations, text_styles)
+- `lib/global/widgets/` - Reusable widgets (Spacing with gap package, ValueChip, EmptySpace)
 - `lib/features/` - Feature modules (products, cart) with Riverpod state management
 - `lib/data/` - Models and repositories (no backend, uses sample data)
-- `lib/app/theme/` - Centralized Material Design 3 theme configuration
+- `lib/app/theme/` - Material Design 3 theme configuration
 - Each folder has `exporter.dart` for barrel file pattern
 
 **Logical Layers**:
-- **Presentation** (`features/*/presentation/`) - Widgets, screens
+- **Presentation** (`features/*/presentation/` or `features/*/widgets/`) - Widgets, screens
 - **Domain** (not present in this simple app) - Business logic classes
 - **Data** (`data/`) - Model classes, repositories
-- **Core** (`core/`) - Shared utilities, extensions
+- **Global** (`global/`) - Shared utilities, extensions, constants, reusable widgets
 
 **State Management**: Riverpod with `StateNotifier` pattern
 - Cart state in `lib/features/cart/providers/cart_provider.dart`
@@ -55,10 +57,12 @@ This is a **training/educational Flutter project** demonstrating Dart extension 
 **This codebase demonstrates extension-based API design.** When adding UI code:
 
 1. **Always use extensions over raw Flutter widgets** where they exist
-2. **Import extensions globally**: `import '../../core/extensions/exporter.dart'`
-3. **Chain methods fluently**: `Text('Hello').paddingAll(16).center.card()`
-4. **Break down large `build()` methods** into smaller, reusable private Widget classes
-5. **Use `const` constructors** in extension chains whenever possible for performance
+2. **Import globally via app_exporter**: `import '../../app_exporter.dart'` (includes extensions, constants, widgets)
+3. **Use constants over magic numbers**: `borderRadius12`, `spacing16`, `appGreen` instead of inline values
+4. **Use Spacing widget**: `Spacing(of: 12)` instead of `SizedBox` - auto-adapts to Column/Row direction
+5. **Chain methods fluently**: `Text('Hello').paddingAll(16).center.card()`
+6. **Break down large `build()` methods** into smaller, reusable private Widget classes
+7. **Use `const` constructors** in extension chains whenever possible for performance
 
 ### Quick Reference (Use These Patterns)
 
@@ -66,6 +70,10 @@ This is a **training/educational Flutter project** demonstrating Dart extension 
 // ❌ DON'T write traditional Flutter code
 Container(
   padding: EdgeInsets.all(16),
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(12),
+    color: Colors.blue,
+  ),
   child: Column(
     children: [
       Text('Title'),
@@ -75,11 +83,15 @@ Container(
   ),
 )
 
-// ✅ DO use extension chains with const where possible
-const [
-  Text('Title'),
-  Text('Subtitle'),
-].toColumn(spacing: 8).paddingAll(16)
+// ✅ DO use constants, extensions, and Spacing widget
+Column(
+  children: [
+    const Text('Title'),
+    const Spacing(of: spacing8),  // gap package - auto-adapts to Column/Row
+    const Text('Subtitle'),
+  ],
+).paddingAll(spacing16)
+ .container(color: blue, borderRadius: borderRadius12)
 
 // Context shortcuts (replaces verbose Theme.of/MediaQuery.of/Navigator.of patterns)
 context.colorScheme.primary        // instead of Theme.of(context).colorScheme.primary
@@ -89,15 +101,26 @@ context.showSnackBar('Message')    // instead of ScaffoldMessenger.of(context).s
 context.push(NewScreen())          // instead of Navigator.push()
 context.pop()                      // instead of Navigator.pop()
 
+// Constants (in lib/global/constants/)
+spacing8, spacing12, spacing16     // Spacing values
+borderRadius4, borderRadius12      // Border radius values
+blue, appGreen, white, black       // Color values
+halfSecond, oneSecond              // Duration values
+
 // Number utilities (reduces boilerplate for spacing and formatting)
-16.heightBox                       // SizedBox(height: 16)
+16.heightBox                       // SizedBox(height: 16) - use Spacing widget instead
 12.paddingAll                      // EdgeInsets.all(12)
-8.borderRadius                     // BorderRadius.circular(8)
+8.borderRadius                     // BorderRadius.circular(8) - use borderRadius8 constant
 price.toCurrency                   // Formatted: '$123.45' with comma separators
 
+// Spacing widget (gap package - preferred over SizedBox)
+const Spacing(of: 12)              // Auto-adapts: vertical in Column, horizontal in Row
+const SliverSpacing(of: 16)        // For CustomScrollView
+const EmptySpace()                 // SizedBox.shrink()
+
 // Layout helpers (automatic spacing via divide() method)
-[Widget1(), Widget2()].toColumn(spacing: 8)        // Column with SizedBox spacing
-[Widget1(), Widget2()].toRow(spacing: 12)          // Row with SizedBox spacing
+[Widget1(), Widget2()].toColumn(spacing: 8)        // Column with spacing
+[Widget1(), Widget2()].toRow(spacing: 12)          // Row with spacing
 [Widget1(), Widget2()].toListView(separator: Divider())  // ListView with dividers
 ```
 
@@ -126,13 +149,24 @@ widget.visible(isLoggedIn)         // Conditional rendering
 
 ## Key Files & Patterns
 
-### Extension Categories (lib/core/extensions/)
+### Extension Categories (lib/global/extensions/)
 - **context_extensions.dart** - Theme, MediaQuery, navigation shortcuts
 - **widget_extensions.dart** - Padding, layout wrappers, card/container builders
 - **num_extensions.dart** - Spacing (heightBox/widthBox), padding, currency formatting
 - **list_extensions.dart** - toColumn/toRow/toListView with auto-spacing via `divide(separator)`
 - **string_extensions.dart** - Case conversion, validation
 - **color_extensions.dart** - Color manipulation utilities
+
+### Constants (lib/global/constants/)
+- **spacing.dart** - spacing2, spacing4, spacing8, spacing12, spacing16, spacing20, spacing24, spacing32, spacing48, spacing64
+- **border_radius.dart** - borderRadius2, borderRadius4, borderRadius8, borderRadius12, borderRadius16, borderRadius200
+- **colors.dart** - blue, white, black, appGreen, backgroundColor, navyBlue
+- **durations.dart** - halfSecond, oneSecond, twoSeconds, etc.
+- **text_styles.dart** - boldTextStyle, regularTextStyle, baseFont
+
+### Widgets (lib/global/widgets/)
+- **spacing.dart** - `Spacing(of: double)` using gap package, `SliverSpacing`, `EmptySpace`
+- **value_chip.dart** - Chip widget for displaying category badges
 
 ### State Management Pattern
 ```dart
@@ -259,26 +293,34 @@ This is an educational project without tests, but if implementing:
 
 ## Import Conventions
 
-**Always use relative imports** with barrel exports:
+**Always use app_exporter.dart** for global access:
 ```dart
-import '../../core/extensions/exporter.dart';        // Extensions
-import '../../data/models/exporter.dart';            // Models
-import '../cart/providers/exporter.dart';            // Providers
+import '../../app_exporter.dart';  // Includes: extensions, constants, widgets, models, providers, theme
 ```
 
-**Never import individual files** - use exporter.dart to maintain clean dependencies.
+This single import provides access to:
+- All extensions (context, widget, num, list, string, color)
+- All constants (spacing, borderRadius, colors, durations, textStyles)
+- All global widgets (Spacing, ValueChip, EmptySpace)
+- All models and providers
+- Flutter/Riverpod/GoogleFonts packages
+
+**Never import individual files** - use exporter.dart pattern for clean dependencies.
 
 ## Common Mistakes to Avoid
 
-1. **Don't write vanilla Flutter when extensions exist** - Check `lib/core/extensions/` first
-2. **Don't use absolute imports** - Use relative paths with exporters
-3. **Don't mutate Riverpod state directly** - Always create new lists/objects in StateNotifier
-4. **Don't forget ProviderScope** - Already wrapped in `main.dart`, don't re-wrap
-5. **Don't exceed 80 character line length** - Format with `dart format`
-6. **Don't use `!` operator carelessly** - Only use when value is guaranteed non-null
-7. **Don't make helper methods that return widgets** - Create private Widget classes instead
-8. **Don't perform expensive operations in `build()`** - Use `compute()` for heavy calculations
-9. **Don't forget `const` constructors** - Use wherever possible for performance
+1. **Don't write vanilla Flutter when extensions exist** - Check `lib/global/extensions/` first
+2. **Don't use magic numbers** - Use constants from `lib/global/constants/` (spacing16, borderRadius12, etc.)
+3. **Don't use SizedBox for spacing** - Use `Spacing(of: x)` widget (gap package, auto-adapts)
+4. **Don't use inline BorderRadius.circular()** - Use borderRadius constants (borderRadius4, borderRadius12, etc.)
+5. **Don't use absolute imports** - Import `../../app_exporter.dart` for everything
+6. **Don't mutate Riverpod state directly** - Always create new lists/objects in StateNotifier
+7. **Don't forget ProviderScope** - Already wrapped in `main.dart`, don't re-wrap
+8. **Don't exceed 80 character line length** - Format with `dart format`
+9. **Don't use `!` operator carelessly** - Only use when value is guaranteed non-null
+10. **Don't make helper methods that return widgets** - Create private Widget classes instead
+11. **Don't perform expensive operations in `build()`** - Use `compute()` for heavy calculations
+12. **Don't forget `const` constructors** - Use wherever possible for performance
 
 ## Layout Best Practices
 
@@ -357,10 +399,19 @@ MaterialApp(
 
 ## Adding New Features
 
-1. **New extensions**: Add to appropriate `lib/core/extensions/*.dart`, update `exporter.dart`
-2. **New feature module**: Create folder in `lib/features/` with `providers/` and `presentation/` subfolders
-3. **New models**: Add to `lib/data/models/`, update exporter
-4. **Sample data**: Add to `ProductRepository.getSampleProducts()` in `lib/data/repositories/product_repository.dart`
+1. **New extensions**: Add to appropriate `lib/global/extensions/*.dart`, update `exporter.dart`
+2. **New constants**: Add to `lib/global/constants/*.dart` (spacing, colors, borderRadius, etc.), update `exporter.dart`
+3. **New reusable widgets**: Add to `lib/global/widgets/*.dart`, update `exporter.dart`
+4. **New feature module**: Create folder in `lib/features/` with `providers/` and `widgets/` subfolders
+5. **New models**: Add to `lib/data/models/`, update exporter
+6. **Sample data**: Add to `ProductRepository.getSampleProducts()` in `lib/data/repositories/product_repository.dart`
+
+## Key Packages
+
+- **flutter_riverpod** (^2.6.1) - State management
+- **google_fonts** (^6.2.1) - Raleway font family
+- **uuid** (^4.5.1) - Unique ID generation
+- **gap** (^3.0.1) - Spacing widgets that adapt to parent direction (Column/Row)
 
 ## Documentation References
 
