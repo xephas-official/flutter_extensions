@@ -29,7 +29,7 @@ class ProductsScreen extends ConsumerWidget {
           ),
         ),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
+          preferredSize: const Size.fromHeight(30),
           child: CategoryFilters(
             categories: categories,
             selectedCategory: selectedCategory,
@@ -38,8 +38,6 @@ class ProductsScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 16),
-
           // Products list (inventory-style)
           if (filteredProducts.isEmpty)
             const Expanded(

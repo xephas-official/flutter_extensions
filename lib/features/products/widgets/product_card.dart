@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../../app_exporter.dart';
 import '../../../global/widgets/value_chip.dart';
 
@@ -119,26 +121,46 @@ class ProductCard extends ConsumerWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FilledButton.icon(
+                  IconButton(
+                    isSelected: itemInCart,
                     onPressed: () {
-                      ref.read(cartProvider.notifier).addProduct(product);
-                      context.showSnackBar('Added to cart!');
+                      if (itemInCart) {
+                        // Remove from cart
+                        ref
+                            .read(cartProvider.notifier)
+                            .removeProduct(product.id);
+                        context.showSnackBar('Removed from cart');
+                      } else {
+                        // Add to cart
+                        ref.read(cartProvider.notifier).addProduct(product);
+                        context.showSnackBar('Added to cart!');
+                      }
                     },
-                    icon: Icon(
-                      itemInCart ? Icons.check : Icons.add_shopping_cart,
-                      size: 20,
+                    splashColor: itemInCart ? appGreen : black,
+                    selectedIcon: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: appGreen.withValues(alpha: .2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.check_circle,
+                        color: appGreen,
+                        size: 28,
+                      ),
                     ),
-                    label: Text(itemInCart ? 'Added' : 'Add'),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: itemInCart
-                          ? context.colorScheme.surfaceContainerHighest
-                          : context.colorScheme.primary,
-                      foregroundColor: itemInCart
-                          ? context.colorScheme.onSurface
-                          : context.colorScheme.onPrimary,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
+                    icon: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: const BoxDecoration(
+                        color: black,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        CupertinoIcons.cart_fill_badge_plus,
+                        color: white,
+                        size: 24,
                       ),
                     ),
                   ),
