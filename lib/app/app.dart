@@ -13,7 +13,6 @@ class ShoppingCartApp extends ConsumerWidget {
       title: 'Flutter Extensions Demo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
       home: const ProductsScreen(),
     );

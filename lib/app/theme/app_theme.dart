@@ -1,38 +1,56 @@
 import 'package:flutter/material.dart';
 
-/// Application theme configuration
+import 'colors.dart';
+
+/// Application theme configuration with blue color scheme
 class AppTheme {
-  /// Light theme
+  /// Light theme with blue primary color
   static ThemeData get lightTheme {
     const colorScheme = ColorScheme.light(
-      primary: Color(0xFF6750A4),
+      primary: blue,
       onPrimary: Color(0xFFFFFFFF),
-      primaryContainer: Color(0xFFEADDFF),
-      onPrimaryContainer: Color(0xFF21005D),
-      secondary: Color(0xFF625B71),
+      primaryContainer: Color(0xFFD8E6FF),
+      onPrimaryContainer: navyBlue,
+      secondary: Color(0xFF535F71),
       onSecondary: Color(0xFFFFFFFF),
-      secondaryContainer: Color(0xFFE8DEF8),
-      onSecondaryContainer: Color(0xFF1D192B),
-      tertiary: Color(0xFF7D5260),
+      secondaryContainer: Color(0xFFD7E3F8),
+      onSecondaryContainer: Color(0xFF101C2B),
+      tertiary: Color(0xFF6B5778),
       onTertiary: Color(0xFFFFFFFF),
-      error: Color(0xFFB3261E),
+      error: Color(0xFFBA1A1A),
       onError: Color(0xFFFFFFFF),
       surface: Color(0xFFFFFBFE),
-      onSurface: Color(0xFF1C1B1F),
-      surfaceContainerHighest: Color(0xFFE7E0EC),
-      onSurfaceVariant: Color(0xFF49454F),
+      onSurface: Color(0xFF1A1C1E),
+      surfaceContainerHighest: Color(0xFFE1E2E5),
+      onSurfaceVariant: Color(0xFF44474E),
     );
 
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
+      appBarTheme: const AppBarTheme(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: blue,
+        foregroundColor: Color(0xFFFFFFFF),
+      ),
       cardTheme: CardThemeData(
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
+          backgroundColor: blue,
+          foregroundColor: Color(0xFFFFFFFF),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: blue,
+          foregroundColor: Color(0xFFFFFFFF),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -41,49 +59,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         filled: true,
-      ),
-    );
-  }
-
-  /// Dark theme
-  static ThemeData get darkTheme {
-    const colorScheme = ColorScheme.dark(
-      primary: Color(0xFFD0BCFF),
-      onPrimary: Color(0xFF381E72),
-      primaryContainer: Color(0xFF4F378B),
-      onPrimaryContainer: Color(0xFFEADDFF),
-      secondary: Color(0xFFCCC2DC),
-      onSecondary: Color(0xFF332D41),
-      secondaryContainer: Color(0xFF4A4458),
-      onSecondaryContainer: Color(0xFFE8DEF8),
-      tertiary: Color(0xFFEFB8C8),
-      onTertiary: Color(0xFF492532),
-      error: Color(0xFFF2B8B5),
-      onError: Color(0xFF601410),
-      surface: Color(0xFF1C1B1F),
-      onSurface: Color(0xFFE6E1E5),
-      surfaceContainerHighest: Color(0xFF36343B),
-      onSurfaceVariant: Color(0xFFCAC4D0),
-    );
-
-    return ThemeData(
-      useMaterial3: true,
-      colorScheme: colorScheme,
-      appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
-      cardTheme: CardThemeData(
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-      filledButtonTheme: FilledButtonThemeData(
-        style: FilledButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        filled: true,
+        fillColor: Color(0xFFF5F5F5),
       ),
     );
   }
