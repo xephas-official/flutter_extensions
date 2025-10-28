@@ -1,151 +1,637 @@
-# Quick Extension Examples - Cheat Sheet
+# Extension Methods Quick Reference
 
-## 🚀 Quick Reference for All Extensions
+> **Comprehensive cheat sheet for all extension methods in this project**
 
-### Context Extensions
+This guide shows **before/after** examples demonstrating how extensions simplify Flutter code.
+
+---
+
+## � Table of Contents
+
+1. [Context Extensions](#context-extensions)
+2. [Widget Extensions](#widget-extensions)
+3. [Number Extensions](#number-extensions)
+4. [List Extensions](#list-extensions)
+5. [String Extensions](#string-extensions)
+6. [Color Extensions](#color-extensions)
+
+---
+
+## Context Extensions
+
+Extensions that make accessing theme, MediaQuery, and navigation easier.
+
+### Theme Access
 
 ```dart
-// Theme access
-context.theme
-context.colorScheme
-context.textTheme
+// ❌ Before
+final primaryColor = Theme.of(context).colorScheme.primary;
+final textStyle = Theme.of(context).textTheme.titleMedium;
 
-// Specific colors
-context.colorScheme.primary
-context.colorScheme.secondary
-context.colorScheme.error
-
-// Screen dimensions
-context.screenSize
-context.screenWidth
-context.screenHeight
-context.isLandscape
-context.isPortrait
-
-// Navigation
-context.push(MyScreen())
-context.pop()
-context.pop<String>('result')
-
-// Feedback
-context.showSnackBar('Message')
-context.showSnackBar('Message', duration: Duration(seconds: 5))
-context.showBanner('Important message')
+// ✅ After
+final primaryColor = context.colorScheme.primary;
+final textStyle = context.textTheme.titleMedium;
 ```
 
-### Widget Extensions
+### Screen Dimensions
 
 ```dart
-// Padding
-widget.padding(EdgeInsets.all(16))
-widget.paddingAll(16)
-widget.paddingSymmetric(horizontal: 16, vertical: 8)
-widget.paddingOnly(left: 16, top: 8)
+// ❌ Before
+final width = MediaQuery.of(context).size.width;
+final height = MediaQuery.of(context).size.height;
+final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
 
-// Layout
+// ✅ After
+final width = context.screenWidth;
+final height = context.screenHeight;
+final isPortrait = context.isPortrait;
+```
+
+### Navigation
+
+```dart
+// ❌ Before
+Navigator.of(context).push(
+  MaterialPageRoute(builder: (_) => DetailScreen()),
+);
+Navigator.of(context).pop();
+Navigator.of(context).pop('result');
+
+// ✅ After
+context.push(DetailScreen());
+context.pop();
+context.pop<String>('result');
+```
+
+### User Feedback
+
+```dart
+// ❌ Before
+ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    content: Text('Item added to cart'),
+    duration: Duration(seconds: 2),
+  ),
+);
+
+// ✅ After
+context.showSnackBar('Item added to cart');
+context.showSnackBar('Custom duration', duration: Duration(seconds: 5));
+```
+
+**Available Methods:**
+
+- `context.theme` - Full ThemeData
+- `context.colorScheme` - ColorScheme shortcut
+- `context.textTheme` - TextTheme shortcut
+- `context.screenSize` - Full Size object
+- `context.screenWidth` - Width only
+- `context.screenHeight` - Height only
+- `context.isLandscape` - Orientation check
+- `context.isPortrait` - Orientation check
+- `context.push()` - Navigate forward
+- `context.pop()` - Navigate back
+- `context.showSnackBar()` - Show snackbar
+- `context.showBanner()` - Show material banner
+
+---
+
+## Widget Extensions
+
+Fluent API for widget composition and styling.
+
+### Padding
+
+```dart
+// ❌ Before
+Padding(
+  padding: EdgeInsets.all(16),
+  child: widget,
+)
+
+Padding(
+  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  child: widget,
+)
+
+Padding(
+  padding: EdgeInsets.only(left: 8, top: 4),
+  child: widget,
+)
+
+// ✅ After
+widget.paddingAll(16)
+
+widget.paddingSymmetric(horizontal: 20, vertical: 10)
+
+widget.paddingOnly(left: 8, top: 4)
+```
+
+### Layout Wrappers
+
+```dart
+// ❌ Before
+Center(child: widget)
+Expanded(child: widget)
+Flexible(flex: 2, child: widget)
+
+// ✅ After
 widget.center
 widget.expanded
 widget.flexible(flex: 2)
+```
 
-// Container
-widget.container(
+### Container
+
+```dart
+// ❌ Before
+Container(
   width: 200,
   height: 100,
   color: Colors.blue,
-  padding: 8.paddingAll,
+  child: widget,
 )
 
-// Card
-widget.card()
+// ✅ After
+widget.container(width: 200, height: 100, color: Colors.blue)
+```
+
+### Card
+
+```dart
+// ❌ Before
+Card(
+  elevation: 4,
+  margin: EdgeInsets.all(8),
+  child: widget,
+)
+
+// ✅ After
 widget.card(elevation: 4, margin: 8.paddingAll)
+```
 
-// Interactions
-widget.onTap(() => print('Tapped'))
-widget.onTap(() { }, borderRadius: 12.borderRadius)
+### Interactions
 
-// Hero animation
-widget.hero('unique-tag')
+```dart
+// ❌ Before
+InkWell(
+  onTap: () => print('Tapped'),
+  borderRadius: BorderRadius.circular(12),
+  child: widget,
+)
 
-// Visibility
+GestureDetector(
+  onTap: () => handleTap(),
+  child: widget,
+)
+
+// ✅ After
+widget.onTap(() => print('Tapped'), borderRadius: 12.borderRadius)
+
+widget.onTap(() => handleTap())
+```
+
+### Hero Animation
+
+```dart
+// ❌ Before
+Hero(
+  tag: 'product-123',
+  child: widget,
+)
+
+// ✅ After
+widget.hero('product-123')
+```
+
+### Conditional Visibility
+
+```dart
+// ❌ Before
+isLoggedIn ? widget : SizedBox.shrink()
+
+hasData ? widget : CircularProgressIndicator()
+
+// ✅ After
 widget.visible(isLoggedIn)
+
 widget.showIf(hasData, fallback: CircularProgressIndicator())
 ```
 
-### Number Extensions
+**Available Methods:**
+
+- `.paddingAll(double)` - Uniform padding
+- `.paddingSymmetric()` - Horizontal/vertical padding
+- `.paddingOnly()` - Specific sides
+- `.center` - Center widget
+- `.expanded` - Expanded widget
+- `.flexible()` - Flexible with flex factor
+- `.container()` - Container wrapper
+- `.card()` - Card wrapper
+- `.onTap()` - Tap handler
+- `.hero()` - Hero animation
+- `.visible()` - Conditional rendering
+- `.showIf()` - Conditional with fallback
+
+---
+
+## Number Extensions
+
+Domain-specific helpers for numbers (int, double).
+
+### Spacing (SizedBox)
 
 ```dart
-// Spacing
-16.heightBox              // SizedBox(height: 16)
-20.widthBox               // SizedBox(width: 20)
+// ❌ Before
+SizedBox(height: 16)
+SizedBox(width: 20)
 
-// Padding
-12.paddingAll             // EdgeInsets.all(12)
-16.paddingHorizontal      // EdgeInsets.symmetric(horizontal: 16)
-8.paddingVertical         // EdgeInsets.symmetric(vertical: 8)
-
-// Border radius
-8.borderRadius            // BorderRadius.circular(8)
-12.borderRadius           // BorderRadius.circular(12)
-
-// Currency formatting
-99.99.toCurrency          // '$99.99'
-1234.56.toCurrency        // '$1,234.56'
+// ✅ After
+16.heightBox
+20.widthBox
 ```
 
-### `List<Widget>` Extensions
+### Padding (EdgeInsets)
 
 ```dart
-// Column with spacing
+// ❌ Before
+EdgeInsets.all(12)
+EdgeInsets.symmetric(horizontal: 16)
+EdgeInsets.symmetric(vertical: 8)
+
+// ✅ After
+12.paddingAll
+16.paddingHorizontal
+8.paddingVertical
+```
+
+### Border Radius
+
+```dart
+// ❌ Before
+BorderRadius.circular(8)
+BorderRadius.circular(12)
+
+// ✅ After
+8.borderRadius
+12.borderRadius
+```
+
+### Currency Formatting
+
+```dart
+// ❌ Before
+Text('\$${price.toStringAsFixed(2)}')  // No thousand separators
+Text('\$${price.toStringAsFixed(2).replaceAllMapped(...)}')  // Complex!
+
+// ✅ After
+Text(price.toCurrency)  // '$1,234.56'
+Text(99.99.toCurrency)  // '$99.99'
+```
+
+**Available Methods:**
+
+- `.heightBox` - SizedBox with height
+- `.widthBox` - SizedBox with width
+- `.paddingAll` - EdgeInsets.all
+- `.paddingHorizontal` - Horizontal EdgeInsets
+- `.paddingVertical` - Vertical EdgeInsets
+- `.borderRadius` - Circular BorderRadius
+- `.toCurrency` - Format as currency
+
+---
+
+## List Extensions
+
+Auto-spaced layout builders for widget lists.
+
+### Column with Spacing
+
+```dart
+// ❌ Before
+Column(
+  children: [
+    Text('Title'),
+    SizedBox(height: 8),
+    Text('Subtitle'),
+    SizedBox(height: 8),
+    Text('Footer'),
+  ],
+)
+
+// ✅ After
 [
   Text('Title'),
   Text('Subtitle'),
-  Text('Body'),
+  Text('Footer'),
 ].toColumn(spacing: 8)
+```
 
-// Column with alignment
-[
-  Text('Left'),
-  Text('Aligned'),
-].toColumn(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  mainAxisAlignment: MainAxisAlignment.center,
-  spacing: 4,
+### Row with Spacing
+
+```dart
+// ❌ Before
+Row(
+  children: [
+    Icon(Icons.star),
+    SizedBox(width: 4),
+    Text('4.5'),
+    SizedBox(width: 4),
+    Text('(120)'),
+  ],
 )
 
-// Row with spacing
+// ✅ After
 [
-  Icon(Icons.home),
-  Text('Home'),
-  Icon(Icons.arrow_forward),
-].toRow(spacing: 8)
-
-// Row with alignment
-[
-  Text('Left'),
-  Spacer(),
-  Text('Right'),
-].toRow(mainAxisAlignment: MainAxisAlignment.spaceBetween)
-
-// ListView
-[
-  ListTile(title: Text('Item 1')),
-  ListTile(title: Text('Item 2')),
-].toListView(padding: 16.paddingAll)
-
-// Wrap
-[
-  Chip(label: Text('Tag 1')),
-  Chip(label: Text('Tag 2')),
-  Chip(label: Text('Tag 3')),
-].toWrap(spacing: 8, runSpacing: 8)
-
-// Divide items
-[
-  Text('Item 1'),
-  Text('Item 2'),
-  Text('Item 3'),
-].divide(Divider())
+  Icon(Icons.star),
+  Text('4.5'),
+  Text('(120)'),
+].toRow(spacing: 4)
 ```
+
+### ListView with Separators
+
+```dart
+// ❌ Before
+ListView.separated(
+  itemCount: items.length,
+  itemBuilder: (context, index) => items[index],
+  separatorBuilder: (_, __) => Divider(),
+)
+
+// ✅ After
+items.toListView(separator: Divider())
+```
+
+**Available Methods:**
+
+- `.toColumn()` - Column with auto-spacing
+- `.toRow()` - Row with auto-spacing
+- `.toListView()` - ListView with separators
+- Spacing is automatic via `.divide()` method
+
+---
+
+## String Extensions
+
+Text manipulation, validation, and formatting.
+
+### Case Conversion
+
+```dart
+// ❌ Before
+final snakeCase = 'userId'.replaceAllMapped(...);  // Complex regex
+final camelCase = 'user_id'.replaceAllMapped(...); // Complex regex
+
+// ✅ After
+'userId'.inSnakeCase      // 'user_id'
+'user_id'.inCamelCase     // 'userId'
+'hello'.capitalize        // 'Hello'
+'Hello'.decapitalize      // 'hello'
+```
+
+### Validation
+
+```dart
+// ❌ Before
+final emailValid = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+    .hasMatch(email);
+
+// ✅ After
+email.isValidEmail  // true or false
+```
+
+### Text Checks
+
+```dart
+// ❌ Before
+text.trim().isEmpty
+!text.trim().isEmpty
+
+// ✅ After
+text.isBlank        // true if empty or whitespace
+text.isNotBlank     // true if has content
+```
+
+### String Manipulation
+
+```dart
+// ❌ Before
+text.split('').reversed.join()
+text.startsWith(prefix) ? text.substring(prefix.length) : text
+text.endsWith(suffix) ? text.substring(0, text.length - suffix.length) : text
+
+// ✅ After
+text.reversed                   // 'olleh' from 'hello'
+text.removePrefix('Hello')      // 'World' from 'HelloWorld'
+text.removeSuffix('.dart')      // 'file' from 'file.dart'
+```
+
+### Null-Safe Parsing
+
+```dart
+// ❌ Before
+int? value = int.tryParse(text);     // Returns null on failure
+double? value = double.tryParse(text);
+
+// ✅ After
+text.toIntOrNull()     // Clearer intent
+text.toDoubleOrNull()  // Clearer intent
+
+// Examples
+'42'.toIntOrNull()         // 42
+'not a number'.toIntOrNull()  // null
+'3.14'.toDoubleOrNull()    // 3.14
+```
+
+### Number Formatting
+
+```dart
+// ❌ Before
+final formatted = '1234567'.replaceAllMapped(
+  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+  (m) => '${m[1]},',
+);
+
+// ✅ After
+'1234567'.withThousandSeparators  // '1,234,567'
+```
+
+### Nullable String Helpers
+
+```dart
+// ❌ Before
+final text = nullableString ?? '';
+if (nullableString == null || nullableString.isEmpty) { }
+if (nullableString == null || nullableString.trim().isEmpty) { }
+
+// ✅ After
+nullableString.orEmpty           // Returns '' if null
+nullableString.isNullOrEmpty     // true if null or empty
+nullableString.isNullOrBlank     // true if null, empty, or whitespace
+```
+
+**Available Methods:**
+
+- `.inSnakeCase` - Convert camelCase to snake_case
+- `.inCamelCase` - Convert snake_case to camelCase
+- `.capitalize` - Capitalize first letter
+- `.decapitalize` - Lowercase first letter
+- `.isValidEmail` - Email validation
+- `.isBlank` - Check if empty/whitespace
+- `.isNotBlank` - Check if has content
+- `.reversed` - Reverse string
+- `.removePrefix()` - Remove leading text
+- `.removeSuffix()` - Remove trailing text
+- `.toIntOrNull()` - Safe int parsing
+- `.toDoubleOrNull()` - Safe double parsing
+- `.withThousandSeparators` - Add commas to numbers
+- `.orEmpty` - Null-safe empty string (nullable)
+- `.isNullOrEmpty` - Null/empty check (nullable)
+- `.isNullOrBlank` - Null/blank check (nullable)
+
+---
+
+## Color Extensions (Optional)
+
+Color manipulation utilities (implement as needed for your project).
+
+```dart
+// Examples of possible color extensions:
+context.colorScheme.primary.withOpacity(0.5)
+Colors.blue.lighten(0.2)
+Colors.red.darken(0.3)
+```
+
+---
+
+## 💡 Usage Tips
+
+### Chaining Extensions
+
+Extensions can be chained for fluent APIs:
+
+```dart
+// Complex UI in one fluent chain
+widget
+  .paddingAll(16)
+  .card(elevation: 4)
+  .onTap(() => handleTap())
+  .hero('unique-id')
+```
+
+### Combining with Constants
+
+Use with constants for consistency:
+
+```dart
+// From lib/global/constants/
+import '../../app_exporter.dart';
+
+widget.paddingAll(spacing16)
+  .container(
+    color: appGreen,
+    borderRadius: borderRadius12,
+  )
+```
+
+### Performance
+
+All extensions compile to static function calls - **zero runtime overhead**!
+
+```dart
+// This extension code:
+widget.paddingAll(16)
+
+// Compiles to something like:
+WidgetExtensions.paddingAll(widget, 16)
+
+// No wrapper objects, no extra overhead!
+```
+
+---
+
+## 🎯 Quick Examples by Use Case
+
+### Building a Product Card
+
+```dart
+// Before: Lots of nesting and boilerplate
+Widget buildCard(Product product) {
+  return Card(
+    child: Padding(
+      padding: EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(product.name),
+          SizedBox(height: 4),
+          Text('\$${product.price.toStringAsFixed(2)}'),
+          SizedBox(height: 8),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Add'),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+// After: Clean and readable
+Widget buildCard(Product product) {
+  return [
+    Text(product.name),
+    Text(product.price.toCurrency),
+    ElevatedButton(
+      onPressed: () {},
+      child: Text('Add'),
+    ),
+  ].toColumn(spacing: 4).paddingAll(12).card();
+}
+```
+
+### Accessing Theme Data
+
+```dart
+// Before: Verbose and repetitive
+final bgColor = Theme.of(context).colorScheme.surface;
+final textColor = Theme.of(context).colorScheme.onSurface;
+final width = MediaQuery.of(context).size.width;
+
+// After: Concise and clear
+final bgColor = context.colorScheme.surface;
+final textColor = context.colorScheme.onSurface;
+final width = context.screenWidth;
+```
+
+### String Formatting in Forms
+
+```dart
+// Before: Manual validation and formatting
+final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@...');
+if (!emailRegex.hasMatch(email)) {
+  return 'Invalid email';
+}
+
+// After: Built-in validation
+if (!email.isValidEmail) {
+  return 'Invalid email';
+}
+```
+
+---
+
+## 📚 Additional Resources
+
+- **Source Code:** `lib/global/extensions/` - Implementation details
+- **Training Guide:** `TRAINING_GUIDE.md` - Deep dive and exercises
+- **Project Summary:** `PROJECT_SUMMARY.md` - Architecture overview
+
+---
+
+**Pro Tip:** Study the extension implementations in `lib/global/extensions/` to understand the patterns and create your own!
+---
 
 ### String Extensions
 
