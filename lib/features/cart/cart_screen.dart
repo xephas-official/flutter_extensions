@@ -52,7 +52,7 @@ class CartScreen extends ConsumerWidget {
       body: cartItems.isEmpty
           ? const EmptyCart()
           : ListView.builder(
-              padding: 16.paddingAll,
+              padding: const EdgeInsets.all(16),
               itemCount: cartItems.length,
               itemBuilder: (context, index) {
                 return CartItemTile(item: cartItems[index]);
@@ -71,53 +71,68 @@ class CartScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-              padding: 16.paddingAll,
+              padding: const EdgeInsets.all(16),
               child: SafeArea(
-                child: [
-                  [
-                    [
-                          Text(
-                            'Total Items',
-                            style: context.textTheme.bodyMedium?.copyWith(
-                              color: context.colorScheme.onSurfaceVariant,
-                            ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Total Items',
+                                style: context.textTheme.bodyMedium?.copyWith(
+                                  color: context.colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                              Text(
+                                '$itemCount',
+                                style: context.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            '$itemCount',
-                            style: context.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Total',
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: context.colorScheme.onSurfaceVariant,
+                              ),
                             ),
-                          ),
-                        ]
-                        .toColumn(crossAxisAlignment: CrossAxisAlignment.start)
-                        .expanded,
-                    [
-                      Text(
-                        'Total',
-                        style: context.textTheme.bodyMedium?.copyWith(
-                          color: context.colorScheme.onSurfaceVariant,
+                            Text(
+                              totalPrice.toCurrency,
+                              style: context.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: context.colorScheme.primary,
+                              ),
+                            ),
+                          ],
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: FilledButton(
+                        onPressed: () {
+                          context.showSnackBar(
+                            'Checkout feature coming soon!',
+                            duration: const Duration(seconds: 3),
+                          );
+                        },
+                        child: const Text('Proceed to Checkout'),
                       ),
-                      Text(
-                        totalPrice.toCurrency,
-                        style: context.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: context.colorScheme.primary,
-                        ),
-                      ),
-                    ].toColumn(crossAxisAlignment: CrossAxisAlignment.end),
-                  ].toRow(),
-                  16.heightBox,
-                  FilledButton(
-                    onPressed: () {
-                      context.showSnackBar(
-                        'Checkout feature coming soon!',
-                        duration: const Duration(seconds: 3),
-                      );
-                    },
-                    child: const Text('Proceed to Checkout'),
-                  ).container(width: double.infinity, height: 50),
-                ].toColumn(),
+                    ),
+                  ],
+                ),
               ),
             ),
     );

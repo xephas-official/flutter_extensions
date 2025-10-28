@@ -65,56 +65,66 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                   ),
                 ),
             ],
-          ).paddingOnly(right: 8),
+          ),
+          const SizedBox(width: 8),
         ],
       ),
-      body: [
-        // Category filter chips
-        SizedBox(
-          height: 50,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            padding: 16.paddingHorizontal,
-            itemCount: categories.length,
-            itemBuilder: (context, index) {
-              final category = categories[index];
-              final isSelected = category == selectedCategory;
+      body: Column(
+        children: [
+          // Category filter chips
+          SizedBox(
+            height: 50,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                final category = categories[index];
+                final isSelected = category == selectedCategory;
 
-              return FilterChip(
-                label: Text(category),
-                selected: isSelected,
-                onSelected: (selected) {
-                  setState(() {
-                    selectedCategory = category;
-                  });
-                },
-                selectedColor: context.colorScheme.primaryContainer,
-                checkmarkColor: context.colorScheme.onPrimaryContainer,
-              ).paddingOnly(right: 8);
-            },
-          ),
-        ),
-
-        16.heightBox,
-
-        // Products grid
-        if (filteredProducts.isEmpty)
-          const Text('No products in this category').center.expanded
-        else
-          GridView.builder(
-            padding: 16.paddingAll,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.screenWidth > 600 ? 3 : 2,
-              childAspectRatio: 0.7,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: FilterChip(
+                    label: Text(category),
+                    selected: isSelected,
+                    onSelected: (selected) {
+                      setState(() {
+                        selectedCategory = category;
+                      });
+                    },
+                    selectedColor: context.colorScheme.primaryContainer,
+                    checkmarkColor: context.colorScheme.onPrimaryContainer,
+                  ),
+                );
+              },
             ),
-            itemCount: filteredProducts.length,
-            itemBuilder: (context, index) {
-              return ProductCard(product: filteredProducts[index]);
-            },
-          ).expanded,
-      ].toColumn(),
+          ),
+
+          const SizedBox(height: 16),
+
+          // Products grid
+          if (filteredProducts.isEmpty)
+            const Expanded(
+              child: Center(child: Text('No products in this category')),
+            )
+          else
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.all(16),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: context.screenWidth > 600 ? 3 : 2,
+                  childAspectRatio: 0.7,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                ),
+                itemCount: filteredProducts.length,
+                itemBuilder: (context, index) {
+                  return ProductCard(product: filteredProducts[index]);
+                },
+              ),
+            ),
+        ],
+      ),
       floatingActionButton: itemCount > 0
           ? FloatingActionButton.extended(
               onPressed: () {

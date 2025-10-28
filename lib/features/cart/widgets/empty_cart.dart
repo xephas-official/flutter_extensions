@@ -7,29 +7,35 @@ class EmptyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return [
-      const Icon(Icons.shopping_cart_outlined, size: 120).container(
-        decoration: BoxDecoration(
-          color: context.colorScheme.surfaceContainerHighest,
-          shape: BoxShape.circle,
-        ),
-        padding: 40.paddingAll,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: context.colorScheme.surfaceContainerHighest,
+              shape: BoxShape.circle,
+            ),
+            padding: const EdgeInsets.all(40),
+            child: const Icon(Icons.shopping_cart_outlined, size: 120),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            'Your cart is empty',
+            style: context.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Add some products to get started',
+            style: context.textTheme.bodyLarge?.copyWith(
+              color: context.colorScheme.onSurfaceVariant,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
-      24.heightBox,
-      Text(
-        'Your cart is empty',
-        style: context.textTheme.headlineSmall?.copyWith(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      8.heightBox,
-      Text(
-        'Add some products to get started',
-        style: context.textTheme.bodyLarge?.copyWith(
-          color: context.colorScheme.onSurfaceVariant,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    ].toColumn(mainAxisAlignment: MainAxisAlignment.center).center;
+    );
   }
 }
