@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../app_exporter.dart';
+import '../product_detail_screen.dart';
 
 /// Widget displaying a product card
 class ProductCard extends ConsumerWidget {
@@ -29,8 +30,7 @@ class ProductCard extends ConsumerWidget {
       ),
       child: InkWell(
         onTap: () {
-          // Could navigate to product details
-          // context.showSnackBar('Product details coming soon!');
+          context.push<void>(ProductDetailScreen(product: product));
         },
         borderRadius: borderRadius12,
         child: Padding(
@@ -41,17 +41,19 @@ class ProductCard extends ConsumerWidget {
               // Product image (emoji) with category badge overlay
               Hero(
                 tag: 'product_${product.id}',
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: context.colorScheme.surfaceContainerHighest,
-                    borderRadius: borderRadius12,
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    product.imageUrl,
-                    style: baseFont.copyWith(fontSize: 48),
+                child: Material(
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.surfaceContainerHighest,
+                      borderRadius: borderRadius12,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      product.imageUrl,
+                      style: baseFont.copyWith(fontSize: 48),
+                    ),
                   ),
                 ),
               ),

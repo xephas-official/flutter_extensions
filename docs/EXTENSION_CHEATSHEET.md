@@ -630,10 +630,11 @@ if (!email.isValidEmail) {
 
 ---
 
-**Pro Tip:** Study the extension implementations in `lib/global/extensions/` to understand the patterns and create your own!
+Pro Tip: Study the extension implementations in `lib/global/extensions/` to understand the patterns and create your own
+
 ---
 
-### String Extensions
+### String Extensions Examples
 
 ```dart
 // Case conversion
