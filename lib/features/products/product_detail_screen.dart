@@ -121,7 +121,7 @@ class ProductDetailScreen extends ConsumerWidget {
                 const Spacing(of: spacing12),
                 _DetailsGrid(product: product),
 
-                const Spacing(of: spacing64),
+                const Spacing(of: spacing64 * 2),
               ]),
             ),
           ),
@@ -261,19 +261,14 @@ class _DetailsGrid extends StatelessWidget {
       {'label': 'Rating', 'value': '4.5 ⭐'},
     ];
 
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: spacing12,
-        crossAxisSpacing: spacing12,
-        childAspectRatio: 2.5,
-      ),
-      itemCount: details.length,
-      itemBuilder: (context, index) {
-        final detail = details[index];
+    return Wrap(
+      children: details.map((detail) {
         return Container(
+          width: (context.screenWidth - 64) / 2,
+          margin: const EdgeInsets.only(
+            bottom: spacing12,
+            right: spacing12,
+          ),
           padding: const EdgeInsets.all(spacing12),
           decoration: BoxDecoration(
             color: context.colorScheme.surfaceContainerHighest,
@@ -299,7 +294,7 @@ class _DetailsGrid extends StatelessWidget {
             ],
           ),
         );
-      },
+      }).toList(),
     );
   }
 }
