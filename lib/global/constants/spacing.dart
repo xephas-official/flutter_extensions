@@ -73,6 +73,9 @@ const verticalInsets16 = EdgeInsets.symmetric(vertical: spacing16);
 /// Vertical insets with `spacing24` on top and bottom.
 const verticalInsets24 = EdgeInsets.symmetric(vertical: spacing24);
 
+/// insets with `spacing2` on all sides.
+const allInsets2 = EdgeInsets.all(spacing2);
+
 /// Insets with `spacing4` on all sides.
 const allInsets4 = EdgeInsets.all(spacing4);
 

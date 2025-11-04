@@ -83,10 +83,7 @@ class ProductDetailScreen extends ConsumerWidget {
                 const Spacing(of: spacing32),
 
                 // Description section
-                Text(
-                  'Description',
-                  style: context.textTheme.titleLarge?.merge(boldTextStyle),
-                ),
+                const StringTitle(labelText: 'Product Description'),
 
                 const Spacing(of: spacing12),
 
@@ -101,10 +98,7 @@ class ProductDetailScreen extends ConsumerWidget {
                 const Spacing(of: spacing32),
 
                 // Features section (demonstrating list extensions)
-                Text(
-                  'Features',
-                  style: context.textTheme.titleLarge?.merge(boldTextStyle),
-                ),
+                const StringTitle(labelText: 'Features'),
 
                 const Spacing(of: spacing12),
 
@@ -113,10 +107,7 @@ class ProductDetailScreen extends ConsumerWidget {
                 const Spacing(of: spacing32),
 
                 // Product details grid
-                Text(
-                  'Details',
-                  style: context.textTheme.titleLarge?.merge(boldTextStyle),
-                ),
+                const StringTitle(labelText: 'Details'),
 
                 const Spacing(of: spacing12),
                 _DetailsGrid(product: product),

@@ -14,7 +14,7 @@ class AppTheme {
       primary: blue,
       primaryContainer: Color(0xFFD8E6FF),
       onPrimaryContainer: navyBlue,
-      secondary: Color(0xFF535F71),
+      secondary: blueAccent,
       onSecondary: Color(0xFFFFFFFF),
       secondaryContainer: Color(0xFFD7E3F8),
       onSecondaryContainer: Color(0xFF101C2B),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../app_exporter.dart';
-import '../product_detail_screen.dart';
+import '../../details/product_detail_screen.dart';
 
 /// Widget displaying a product card
 class ProductCard extends ConsumerWidget {
