@@ -101,12 +101,11 @@ class ColorTitle extends StatelessWidget {
                 // value
                 final value = textLabel.value;
 
-                // For shade labels, parse the hex color and show a swatch
-                final isShadeLabel =
-                    title.inLowerCase.contains('Lighter'.inLowerCase) ||
-                    title.inLowerCase.contains('Darker'.inLowerCase) ||
-                    title.inLowerCase == 'Complementary'.inLowerCase ||
-                    title.inLowerCase == 'Grayscale'.inLowerCase;
+                // For color transformation labels, show a color swatch
+                final isColorLabel =
+                    title == 'Complementary' ||
+                    title == 'Grayscale' ||
+                    title.contains('Opacity');
 
                 return Row(
                   spacing: spacing16,
@@ -122,13 +121,13 @@ class ColorTitle extends StatelessWidget {
                       ),
                     ),
 
-                    // If it's a shade/color transformation, show color swatch
-                    if (isShadeLabel && value.startsWith('#'))
+                    // If it's a color transformation, show color swatch
+                    if (isColorLabel && value.startsWith('#'))
                       Container(
                         width: 24,
                         height: 24,
                         decoration: BoxDecoration(
-                          color: _parseHexColor(value),
+                          color: value.toColor,
                           borderRadius: borderRadius4,
                           border: Border.all(
                             color: black.withValues(alpha: 0.2),
@@ -156,15 +155,5 @@ class ColorTitle extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  /// Helper to parse hex color string
-  Color _parseHexColor(String hexString) {
-    final buffer = StringBuffer();
-    if (hexString.length == 7) {
-      buffer.write('ff'); // Add alpha if not present
-    }
-    buffer.write(hexString.replaceFirst('#', ''));
-    return Color(int.parse(buffer.toString(), radix: 16));
   }
 }

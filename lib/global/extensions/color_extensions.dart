@@ -3,22 +3,33 @@ import '../utils/text_label.dart';
 
 /// Color extensions for common manipulations
 extension ColorExtensions on Color {
-  /// Returns a lighter shade of this color
-  Color get lighter {
-    return Color.alphaBlend(Colors.white.withValues(alpha: 0.3), this);
-  }
-
-  /// Returns a darker shade of this color
-  Color get darker {
-    return Color.alphaBlend(Colors.black.withValues(alpha: 0.3), this);
-  }
-
   /// Returns the color with the specified opacity
   Color withOpacityValue(double opacity) {
     return withValues(alpha: opacity.clamp(0.0, 1.0));
   }
 
-  /// Converts color to hex string
+  /// Gets the integer value of this color (0xAARRGGBB format).
+  ///
+  /// Returns the color as a 32-bit integer with alpha, red, green, blue channels.
+  /// Example: Color(0xFF00297F).toIntValue returns 0xFF00297F (4278233471)
+  int get toIntValue {
+    return (a.toInt() << 24) | (r.toInt() << 16) | (g.toInt() << 8) | b.toInt();
+  }
+
+  /// Converts color to hex string with alpha (0xAARRGGBB format).
+  ///
+  /// Returns formatted string like '0xFF00297F'.
+  String get toHexWithAlpha {
+    return '0x${a.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${r.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${g.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${b.toInt().toRadixString(16).padLeft(2, '0')}'
+        .toUpperCase();
+  }
+
+  /// Converts color to hex string with alpha and hash (#AARRGGBB format).
+  ///
+  /// Returns formatted string like '#FF00297F'.
   String get toHex {
     return '#${a.toInt().toRadixString(16).padLeft(2, '0')}'
             '${r.toInt().toRadixString(16).padLeft(2, '0')}'
@@ -27,8 +38,20 @@ extension ColorExtensions on Color {
         .toUpperCase();
   }
 
-  /// Converts color to hex string without alpha
+  /// Converts color to hex string without alpha (RRGGBB format).
+  ///
+  /// Returns 6-character hex string like '00297F' without prefix.
   String get toHexNoAlpha {
+    return '${r.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${g.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${b.toInt().toRadixString(16).padLeft(2, '0')}'
+        .toUpperCase();
+  }
+
+  /// Converts color to hex string without alpha with hash (#RRGGBB format).
+  ///
+  /// Returns formatted string like '#00297F'.
+  String get toHexNoAlphaWithHash {
     return '#${r.toInt().toRadixString(16).padLeft(2, '0')}'
             '${g.toInt().toRadixString(16).padLeft(2, '0')}'
             '${b.toInt().toRadixString(16).padLeft(2, '0')}'
@@ -101,54 +124,6 @@ extension ColorExtensions on Color {
     return Color.fromARGB(a.toInt(), gray, gray, gray);
   }
 
-  /// Returns color with 10% lighter shade
-  Color get lighter10 => Color.alphaBlend(
-    Colors.white.withValues(alpha: 0.1),
-    this,
-  );
-
-  /// Returns color with 20% lighter shade
-  Color get lighter20 => Color.alphaBlend(
-    Colors.white.withValues(alpha: 0.2),
-    this,
-  );
-
-  /// Returns color with 30% lighter shade
-  Color get lighter30 => Color.alphaBlend(
-    Colors.white.withValues(alpha: 0.3),
-    this,
-  );
-
-  /// Returns color with 50% lighter shade
-  Color get lighter50 => Color.alphaBlend(
-    Colors.white.withValues(alpha: 0.5),
-    this,
-  );
-
-  /// Returns color with 10% darker shade
-  Color get darker10 => Color.alphaBlend(
-    Colors.black.withValues(alpha: 0.1),
-    this,
-  );
-
-  /// Returns color with 20% darker shade
-  Color get darker20 => Color.alphaBlend(
-    Colors.black.withValues(alpha: 0.2),
-    this,
-  );
-
-  /// Returns color with 30% darker shade
-  Color get darker30 => Color.alphaBlend(
-    Colors.black.withValues(alpha: 0.3),
-    this,
-  );
-
-  /// Returns color with 50% darker shade
-  Color get darker50 => Color.alphaBlend(
-    Colors.black.withValues(alpha: 0.5),
-    this,
-  );
-
   /// Returns color with 10% opacity
   Color get opacity10 => withValues(alpha: 0.1);
 
@@ -165,9 +140,8 @@ extension ColorExtensions on Color {
   Color get opacity70 => withValues(alpha: 0.7);
 
   /// Returns color with 90% opacity
-  Color get opacity90 => withValues(alpha: 0.9);
-
-  // ============ TextLabel Conversion ============
+  Color get opacity90 =>
+      withValues(alpha: 0.9); // ============ TextLabel Conversion ============
 
   /// Converts a color to a TextLabel with a specific format.
   ///
@@ -175,10 +149,16 @@ extension ColorExtensions on Color {
   TextLabel asTextLabel(String formatType) {
     String convertedValue;
     switch (formatType) {
-      case 'Hex':
+      case 'Integer Value':
+        convertedValue = toIntValue.toString();
+      case 'Hex (0x)':
+        convertedValue = toHexWithAlpha;
+      case 'Hex (#)':
         convertedValue = toHex;
       case 'Hex (No Alpha)':
         convertedValue = toHexNoAlpha;
+      case 'Hex (# No Alpha)':
+        convertedValue = toHexNoAlphaWithHash;
       case 'RGB':
         convertedValue = toRGB;
       case 'RGBA':
@@ -191,26 +171,18 @@ extension ColorExtensions on Color {
         convertedValue = isLight.toString();
       case 'Is Dark':
         convertedValue = isDark.toString();
-      case 'Lighter 10%':
-        convertedValue = lighter10.toHexNoAlpha;
-      case 'Lighter 20%':
-        convertedValue = lighter20.toHexNoAlpha;
-      case 'Lighter 30%':
-        convertedValue = lighter30.toHexNoAlpha;
-      case 'Lighter 50%':
-        convertedValue = lighter50.toHexNoAlpha;
-      case 'Darker 10%':
-        convertedValue = darker10.toHexNoAlpha;
-      case 'Darker 20%':
-        convertedValue = darker20.toHexNoAlpha;
-      case 'Darker 30%':
-        convertedValue = darker30.toHexNoAlpha;
-      case 'Darker 50%':
-        convertedValue = darker50.toHexNoAlpha;
       case 'Complementary':
-        convertedValue = complementary.toHexNoAlpha;
+        convertedValue = complementary.toHexNoAlphaWithHash;
       case 'Grayscale':
-        convertedValue = grayscale.toHexNoAlpha;
+        convertedValue = grayscale.toHexNoAlphaWithHash;
+      case 'Opacity 10%':
+        convertedValue = opacity10.toHexWithAlpha;
+      case 'Opacity 30%':
+        convertedValue = opacity30.toHexWithAlpha;
+      case 'Opacity 50%':
+        convertedValue = opacity50.toHexWithAlpha;
+      case 'Opacity 70%':
+        convertedValue = opacity70.toHexWithAlpha;
       default:
         convertedValue = toHex;
     }
@@ -227,24 +199,23 @@ extension ColorExtensions on Color {
   /// Each TextLabel contains the format name and the formatted value.
   List<TextLabel> get toTextLabels {
     final formats = [
-      'Hex',
+      'Integer Value',
+      'Hex (0x)',
+      'Hex (#)',
       'Hex (No Alpha)',
+      'Hex (# No Alpha)',
       'RGB',
       'RGBA',
       'HSL',
       'Brightness',
       'Is Light',
       'Is Dark',
-      'Lighter 10%',
-      'Lighter 20%',
-      'Lighter 30%',
-      'Lighter 50%',
-      'Darker 10%',
-      'Darker 20%',
-      'Darker 30%',
-      'Darker 50%',
       'Complementary',
       'Grayscale',
+      'Opacity 10%',
+      'Opacity 30%',
+      'Opacity 50%',
+      'Opacity 70%',
     ];
 
     return formats.map(asTextLabel).toList();
@@ -255,8 +226,11 @@ extension ColorExtensions on Color {
   /// Useful for displaying color in different formats.
   List<TextLabel> get toFormatLabels {
     final formats = [
-      'Hex',
+      'Integer Value',
+      'Hex (0x)',
+      'Hex (#)',
       'Hex (No Alpha)',
+      'Hex (# No Alpha)',
       'RGB',
       'RGBA',
       'HSL',
@@ -264,19 +238,15 @@ extension ColorExtensions on Color {
     return formats.map(asTextLabel).toList();
   }
 
-  /// Returns a list of TextLabels for color shades.
+  /// Returns a list of TextLabels for color opacity variations.
   ///
-  /// Useful for displaying lighter and darker variations.
-  List<TextLabel> get toShadeLabels {
+  /// Useful for displaying opacity variations.
+  List<TextLabel> get toOpacityLabels {
     final formats = [
-      'Lighter 10%',
-      'Lighter 20%',
-      'Lighter 30%',
-      'Lighter 50%',
-      'Darker 10%',
-      'Darker 20%',
-      'Darker 30%',
-      'Darker 50%',
+      'Opacity 10%',
+      'Opacity 30%',
+      'Opacity 50%',
+      'Opacity 70%',
     ];
     return formats.map(asTextLabel).toList();
   }
@@ -293,6 +263,68 @@ extension ColorExtensions on Color {
       'Grayscale',
     ];
     return formats.map(asTextLabel).toList();
+  }
+}
+
+/// String extension for converting HEX strings to Color
+extension HexStringToColor on String {
+  /// Converts a HEX string to a Color object.
+  ///
+  /// Supports multiple formats:
+  /// - '00297F' -> Color(0xFF00297F) - assumes full opacity
+  /// - 'FF00297F' -> Color(0xFF00297F) - with alpha
+  /// - '#00297F' -> Color(0xFF00297F) - with hash
+  /// - '#FF00297F' -> Color(0xFF00297F) - with hash and alpha
+  /// - '0xFF00297F' -> Color(0xFF00297F) - with 0x prefix
+  ///
+  /// Example:
+  /// ```dart
+  /// '00297F'.toColor       // Color(0xFF00297F)
+  /// '#FF00297F'.toColor    // Color(0xFF00297F)
+  /// '0xFF00297F'.toColor   // Color(0xFF00297F)
+  /// ```
+  Color? get toColor {
+    try {
+      var hexString = trim();
+
+      // Remove hash if present
+      if (hexString.startsWith('#')) {
+        hexString = hexString.substring(1);
+      }
+
+      // Remove 0x prefix if present
+      if (hexString.toLowerCase().startsWith('0x')) {
+        hexString = hexString.substring(2);
+      }
+
+      // If only RGB (6 characters), add FF for full opacity
+      if (hexString.length == 6) {
+        hexString = 'FF$hexString';
+      }
+
+      // Parse as integer
+      if (hexString.length == 8) {
+        final intValue = int.parse(hexString, radix: 16);
+        return Color(intValue);
+      }
+
+      return null;
+    } on FormatException {
+      return null;
+    }
+  }
+
+  /// Converts a HEX string to a Color object with a fallback.
+  ///
+  /// Returns the parsed color or the fallback color if parsing fails.
+  ///
+  /// Example:
+  /// ```dart
+  /// 'invalid'.toColorOr(Colors.blue)  // Colors.blue
+  /// '00297F'.toColorOr(Colors.blue)   // Color(0xFF00297F)
+  /// ```
+  Color toColorOr(Color fallback) {
+    return toColor ?? fallback;
   }
 }
 
