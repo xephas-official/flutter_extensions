@@ -50,8 +50,11 @@ Product(
 
 ### Format Conversions
 
-- `toHex` - Full hex with alpha (#AARRGGBB)
-- `toHexNoAlpha` - Hex without alpha (#RRGGBB)
+- `toHexWithAlpha` - Full hex with alpha (0xAARRGGBB)
+- `toHex` - Hex with alpha and hash (#AARRGGBB)
+- `toHexNoAlpha` - Hex without alpha (RRGGBB)
+- `toHexNoAlphaWithHash` - Hex without alpha with hash (#RRGGBB)
+- `toIntValue` - Integer value (0xAARRGGBB as int)
 - `toRGB` - RGB(255, 0, 0)
 - `toRGBA` - RGBA(255, 0, 0, 1.00)
 - `toHSL` - HSL(180°, 50%, 50%)
@@ -64,11 +67,18 @@ Product(
 - `complementary` - Get complementary color (opposite on color wheel)
 - `grayscale` - Convert to grayscale
 
-### Shade Variations
+### Opacity Variations
 
-- `lighter10/20/30/50` - Lighter shades by percentage
-- `darker10/20/30/50` - Darker shades by percentage
 - `opacity10/20/30/50/70/90` - Opacity variations
+
+### String to Color Conversion
+
+The `HexStringToColor` extension on `String` allows parsing HEX strings:
+
+- `'00297F'.toColor` - Parse HEX to Color (assumes full opacity)
+- `'#FF00297F'.toColor` - Parse with hash and alpha
+- `'0xFF00297F'.toColor` - Parse with 0x prefix
+- `'invalid'.toColorOr(Colors.blue)` - Safe parsing with fallback
 
 ### TextLabel Conversion
 
@@ -76,12 +86,12 @@ Following the pattern from num/string extensions:
 
 ```dart
 // Single format conversion
-color.asTextLabel('Hex')  // TextLabel(label: 'Hex', value: '#FF0000')
+color.asTextLabel('Hex (#)')  // TextLabel(label: 'Hex (#)', value: '#FF0000')
 
-// All format variations
-color.toTextLabels        // List<TextLabel> with all 18 formats
-color.toFormatLabels      // Hex, RGB, RGBA, HSL formats
-color.toShadeLabels       // All lighter/darker variations
+// All format variations (17 total)
+color.toTextLabels        // List<TextLabel> with all formats
+color.toFormatLabels      // Hex, RGB, RGBA, HSL, Integer formats
+color.toOpacityLabels     // All opacity variations
 color.toAnalysisLabels    // Brightness, complementary, grayscale
 ```
 
@@ -176,7 +186,7 @@ Features:
 - Hex code display
 - Category chip with adaptive text color (black on light, white on dark)
 - Expansion tile with all color format variations
-- Visual color swatches for shade transformations
+- Visual color swatches for opacity transformations
 - Uses green theme color (`appGreen`)
 
 Usage:
@@ -247,8 +257,10 @@ final color = Colors.blue;
 
 // Format conversions
 print(color.toHex);           // #FF2196F3
+print(color.toHexNoAlphaWithHash);  // #2196F3
 print(color.toRGB);           // RGB(33, 150, 243)
 print(color.toHSL);           // HSL(207°, 89%, 54%)
+print(color.toIntValue);      // 4280391411
 
 // Analysis
 print(color.brightness);       // 0.54
@@ -256,12 +268,17 @@ print(color.isLight);         // true
 print(color.complementary.toHex);  // #FFED6C09
 
 // Transformations
-final lighter = color.lighter20;
-final darker = color.darker30;
 final transparent = color.opacity50;
+final gray = color.grayscale;
+
+// String to Color parsing
+final parsed = '00297F'.toColor;  // Color(0xFF00297F)
+final safeParsed = 'invalid'.toColorOr(Colors.blue);  // Colors.blue
 
 // TextLabels for UI
-final labels = color.toTextLabels;  // All 18 format variations
+final labels = color.toTextLabels;  // All 17 format variations
+final formatLabels = color.toFormatLabels;  // Only format conversions
+final analysisLabels = color.toAnalysisLabels;  // Only analysis results
 ```
 
 ### Date Extensions Examples
@@ -291,10 +308,11 @@ final labels = date.toTextLabels;  // All 20 format variations
 
 1. **Consistency**: Color and Date extensions follow the exact same patterns as Number and String extensions
 2. **TextLabel Pattern**: All extensions provide `asTextLabel()` and `toTextLabels` for UI demonstration
-3. **Categorized Labels**: Grouped label getters (e.g., `toFormatLabels`, `toShadeLabels`) for different use cases
+3. **Categorized Labels**: Grouped label getters (e.g., `toFormatLabels`, `toOpacityLabels`, `toAnalysisLabels`) for different use cases
 4. **Widget Consistency**: ColorTitle and DateTitle match the style and structure of NumTitle and StringTitle
 5. **Extension-First API**: All formatters are extensions, not standalone functions
 6. **Null Safety**: Nullable extensions included (e.g., `NullableDateTimeExtensions`)
+7. **String Parsing**: HexStringToColor extension enables parsing HEX strings to Color objects
 
 ## Testing the Implementation
 

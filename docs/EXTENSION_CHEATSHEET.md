@@ -6,7 +6,7 @@ This guide shows **before/after** examples demonstrating how extensions simplify
 
 ---
 
-## � Table of Contents
+## 📋 Table of Contents
 
 1. [Context Extensions](#context-extensions)
 2. [Widget Extensions](#widget-extensions)
@@ -14,6 +14,8 @@ This guide shows **before/after** examples demonstrating how extensions simplify
 4. [List Extensions](#list-extensions)
 5. [String Extensions](#string-extensions)
 6. [Color Extensions](#color-extensions)
+7. [Date Extensions](#date-extensions)
+8. [Bool Extensions](#bool-extensions)
 
 ---
 
@@ -492,16 +494,230 @@ nullableString.isNullOrBlank     // true if null, empty, or whitespace
 
 ---
 
-## Color Extensions (Optional)
+## Color Extensions
 
-Color manipulation utilities (implement as needed for your project).
+Color manipulation and conversion utilities.
+
+### Format Conversions
 
 ```dart
-// Examples of possible color extensions:
-context.colorScheme.primary.withOpacity(0.5)
-Colors.blue.lighten(0.2)
-Colors.red.darken(0.3)
+// ❌ Before
+final hexString = '#${color.value.toRadixString(16).padLeft(8, '0')}';
+final rgbString = 'RGB(${color.red}, ${color.green}, ${color.blue})';
+
+// ✅ After
+final hexString = color.toHex;  // '#FF2196F3'
+final rgbString = color.toRGB;  // 'RGB(33, 150, 243)'
 ```
+
+### HEX String Parsing
+
+```dart
+// ❌ Before
+Color parseHex(String hex) {
+  hex = hex.replaceAll('#', '');
+  if (hex.length == 6) hex = 'FF$hex';
+  return Color(int.parse(hex, radix: 16));
+}
+
+// ✅ After
+final color = '00297F'.toColor;  // Color(0xFF00297F)
+final color = '#FF00297F'.toColor;  // with hash
+final color = '0xFF00297F'.toColor;  // with 0x prefix
+final safe = 'invalid'.toColorOr(Colors.blue);  // with fallback
+```
+
+### Color Analysis
+
+```dart
+// ❌ Before
+final brightness = (color.red * 0.299 + color.green * 0.587 + color.blue * 0.114) / 255;
+final isLight = brightness > 0.5;
+
+// ✅ After
+final brightness = color.brightness;
+final isLight = color.isLight;
+final isDark = color.isDark;
+```
+
+### Opacity Variations
+
+```dart
+// ❌ Before
+final transparent = color.withOpacity(0.5);
+
+// ✅ After
+final transparent = color.opacity50;
+final veryTransparent = color.opacity10;
+final mostlyOpaque = color.opacity90;
+```
+
+**Available Methods:**
+
+- `color.toIntValue` - Get integer value (0xAARRGGBB)
+- `color.toHexWithAlpha` - HEX with alpha (0xAARRGGBB)
+- `color.toHex` - HEX with alpha and hash (#AARRGGBB)
+- `color.toHexNoAlpha` - HEX without alpha (RRGGBB)
+- `color.toHexNoAlphaWithHash` - HEX with hash, no alpha (#RRGGBB)
+- `color.toRGB` - RGB format string
+- `color.toRGBA` - RGBA format string
+- `color.toHSL` - HSL format string
+- `color.brightness` - Brightness value (0.0-1.0)
+- `color.isLight` - Check if light color
+- `color.isDark` - Check if dark color
+- `color.complementary` - Get complementary color
+- `color.grayscale` - Convert to grayscale
+- `color.opacity10/20/30/50/70/90` - Opacity variations
+- `'hexString'.toColor` - Parse HEX to Color
+- `'hexString'.toColorOr(fallback)` - Safe parsing with fallback
+
+---
+
+## Date Extensions
+
+DateTime formatting and manipulation utilities.
+
+### Date Formatting
+
+```dart
+// ❌ Before
+import 'package:intl/intl.dart';
+
+final formatter = DateFormat('EEEE, dd MMMM yyyy');
+final fullDate = formatter.format(date);
+
+// ✅ After
+final fullDate = date.toFullDate;  // 'Monday, 15 January 2024'
+```
+
+### Relative Dates
+
+```dart
+// ❌ Before
+String getTimeAgo(DateTime date) {
+  final diff = DateTime.now().difference(date);
+  if (diff.inDays > 0) return '${diff.inDays} days ago';
+  if (diff.inHours > 0) return '${diff.inHours} hours ago';
+  return '${diff.inMinutes} minutes ago';
+}
+
+// ✅ After
+final timeAgo = date.timeAgo;  // '5 minutes ago'
+final relative = date.toRelativeDate;  // 'Today' or 'Yesterday'
+```
+
+### Date Validation
+
+```dart
+// ❌ Before
+final isToday = date.year == DateTime.now().year &&
+                date.month == DateTime.now().month &&
+                date.day == DateTime.now().day;
+
+// ✅ After
+final isToday = date.isToday;
+final isWeekend = date.isWeekend;
+final isPast = date.isPast;
+```
+
+### Date Manipulation
+
+```dart
+// ❌ Before
+final nextWeek = date.add(Duration(days: 7));
+final startOfDay = DateTime(date.year, date.month, date.day);
+
+// ✅ After
+final nextWeek = date.addDays(7);
+final startOfDay = date.startOfDay;
+```
+
+**Available Methods:**
+
+- `date.toFullDate` - Full date format
+- `date.toShortDate` - Short date format
+- `date.toISODate` - ISO format (YYYY-MM-DD)
+- `date.toTime12Hour` - 12-hour time
+- `date.toTime24Hour` - 24-hour time
+- `date.timeAgo` - Relative time string
+- `date.toRelativeDate` - Today/Yesterday/formatted
+- `date.isToday/isYesterday/isTomorrow` - Day validation
+- `date.isWeekend/isWeekday` - Day type
+- `date.isPast/isFuture` - Temporal validation
+- `date.addDays/addMonths/addYears` - Add time
+- `date.startOfDay/endOfDay` - Day boundaries
+- `date.age` - Calculate age in years
+- `date.daysUntil/daysSince` - Day calculations
+
+---
+
+## Bool Extensions
+
+Boolean utility methods for common operations.
+
+### Toggle
+
+```dart
+// ❌ Before
+void toggleExpanded() {
+  setState(() {
+    isExpanded = !isExpanded;
+  });
+}
+
+// ✅ After
+void toggleExpanded() {
+  setState(() {
+    isExpanded = isExpanded.toggle;
+  });
+}
+```
+
+### Text Conversions
+
+```dart
+// ❌ Before
+final statusText = isActive ? 'Active' : 'Inactive';
+final yesNo = hasPermission ? 'Yes' : 'No';
+
+// ✅ After
+final statusText = isActive.toActiveInactive;
+final yesNo = hasPermission.toYesNo;
+```
+
+### Display Formatting
+
+```dart
+// ❌ Before
+Widget buildStatus(bool inStock) {
+  return Row(
+    children: [
+      Icon(inStock ? Icons.check_circle : Icons.cancel),
+      Text(inStock ? 'In Stock' : 'Out of Stock'),
+    ],
+  );
+}
+
+// ✅ After
+Widget buildStatus(bool inStock) {
+  return Row(
+    children: [
+      Icon(inStock ? Icons.check_circle : Icons.cancel),
+      Text(inStock.toEnabledDisabled),  // 'Enabled' or 'Disabled'
+    ],
+  );
+}
+```
+
+**Available Methods:**
+
+- `bool.toggle` - Toggle boolean value
+- `bool.toYesNo` - 'Yes' or 'No'
+- `bool.toOnOff` - 'ON' or 'OFF'
+- `bool.toEnabledDisabled` - 'Enabled' or 'Disabled'
+- `bool.toActiveInactive` - 'Active' or 'Inactive'
+- `bool.toCheckmark` - '✓' or '✗'
+- `bool.toInt` - 1 or 0
 
 ---
 
@@ -634,7 +850,9 @@ Pro Tip: Study the extension implementations in `lib/global/extensions/` to unde
 
 ---
 
-### String Extensions Examples
+## Quick Reference Examples
+
+### String Extension Examples
 
 ```dart
 // Case conversion
@@ -647,18 +865,28 @@ Pro Tip: Study the extension implementations in `lib/global/extensions/` to unde
 'invalid'.isValidEmail         // false
 ```
 
-### Color Extensions
+### Color Quick Examples
 
 ```dart
-// Shades
-Colors.blue.lighter
-Colors.red.darker
+// Format conversions
+Colors.blue.toHex                // '#FF2196F3'
+Colors.blue.toHexNoAlphaWithHash // '#2196F3'
+Colors.blue.toRGB                // 'RGB(33, 150, 243)'
+Colors.blue.toIntValue           // 4280391411
 
 // Opacity
-myColor.withOpacityValue(0.5)
+myColor.opacity50                // 50% opacity
+myColor.opacity70                // 70% opacity
 
-// Hex conversion
-Colors.blue.toHex            // '#FF2196F3'
+// Analysis
+Colors.blue.isLight              // true
+Colors.blue.brightness           // 0.54
+Colors.blue.complementary        // Color
+
+// String to Color parsing
+'00297F'.toColor                 // Color(0xFF00297F)
+'#FF00297F'.toColor              // Color(0xFF00297F)
+'invalid'.toColorOr(Colors.blue) // Colors.blue (fallback)
 ```
 
 ### List Extensions 2

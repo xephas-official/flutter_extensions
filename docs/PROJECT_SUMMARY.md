@@ -150,10 +150,40 @@ Text('Hello')
 #### 6. **Color Extensions** (`color_extensions.dart`)
 
 ```dart
-Colors.blue.lighter
-Colors.red.darker
-myColor.toHex
-myColor.withOpacityValue(0.5)
+Colors.blue.toHex              // '#FF2196F3'
+Colors.blue.toRGB              // 'RGB(33, 150, 243)'
+Colors.blue.toIntValue         // 4280391411
+Colors.blue.opacity50          // 50% opacity
+Colors.blue.isLight            // true
+Colors.blue.complementary      // Complementary color
+'00297F'.toColor               // Parse HEX to Color
+'invalid'.toColorOr(Colors.blue)  // Safe parsing
+```
+
+#### 7. **Date Extensions** (`date_extensions.dart`)
+
+```dart
+date.toFullDate                // 'Monday, 15 January 2024'
+date.toShortDate               // 'Jan 15, 2024'
+date.toISODate                 // '2024-01-15'
+date.toTime12Hour              // '2:30 PM'
+date.timeAgo                   // '5 minutes ago'
+date.isToday                   // true/false
+date.isWeekend                 // true/false
+date.addDays(7)                // Add days
+date.age                       // Calculate age in years
+```
+
+#### 8. **Bool Extensions** (`bool_extensions.dart`)
+
+```dart
+isEnabled.toggle               // !isEnabled
+flag.toYesNo                   // 'Yes' or 'No'
+flag.toOnOff                   // 'ON' or 'OFF'
+flag.toEnabledDisabled         // 'Enabled' or 'Disabled'
+flag.toActiveInactive          // 'Active' or 'Inactive'
+flag.toCheckmark               // '✓' or '✗'
+flag.toInt                     // 1 or 0
 ```
 
 ---

@@ -10,23 +10,51 @@ This document lists all the files created for your Flutter Extensions training p
 
 ### Root Configuration Files
 
-- ✅ `pubspec.yaml` - Updated with dependencies (Riverpod, UUID)
+- ✅ `pubspec.yaml` - Updated with dependencies (Riverpod, UUID, intl, gap)
 - ✅ `README.md` - Comprehensive project documentation
-- ✅ `TRAINING_GUIDE.md` - In-depth training guide with exercises
-- ✅ `PRESENTATION_SLIDES.md` - 31-slide workshop presentation
-- ✅ `EXTENSION_CHEATSHEET.md` - Quick reference guide
-- ✅ `PROJECT_SUMMARY.md` - Detailed project overview
-- ✅ `FILE_MANIFEST.md` - This file!
+- ✅ `docs/TRAINING_GUIDE.md` - In-depth training guide with exercises
+- ✅ `docs/PRESENTATION_SLIDES.md` - 31-slide workshop presentation
+- ✅ `docs/EXTENSION_CHEATSHEET.md` - Quick reference guide
+- ✅ `docs/PROJECT_SUMMARY.md` - Detailed project overview
+- ✅ `docs/COLOR_DATE_EXTENSIONS_GUIDE.md` - Guide for color/date extensions
+- ✅ `docs/FILE_MANIFEST.md` - This file!
+- ✅ `.github/copilot-instructions.md` - AI coding agent instructions
 
-### Core Extensions (lib/core/extensions/)
+### Global Extensions (lib/global/extensions/)
 
 - ✅ `context_extensions.dart` - BuildContext helpers (theme, navigation, etc.)
 - ✅ `widget_extensions.dart` - Widget wrappers and modifiers
 - ✅ `num_extensions.dart` - Number utilities (spacing, currency, etc.)
-- ✅ `string_extensions.dart` - String manipulation
+- ✅ `string_extensions.dart` - String manipulation and case conversion
 - ✅ `list_extensions.dart` - List and `List<Widget>` helpers
-- ✅ `color_extensions.dart` - Color utilities
+- ✅ `color_extensions.dart` - Color utilities and HEX conversion
+- ✅ `date_extensions.dart` - DateTime formatting and manipulation
+- ✅ `bool_extensions.dart` - Boolean utilities and toggle
 - ✅ `exporter.dart` - Export all extensions
+
+### Global Constants (lib/global/constants/)
+
+- ✅ `spacing.dart` - Spacing constants
+- ✅ `border_radius.dart` - Border radius constants
+- ✅ `colors.dart` - Color constants
+- ✅ `durations.dart` - Duration constants
+- ✅ `text_styles.dart` - Text style constants
+- ✅ `exporter.dart` - Export all constants
+
+### Global Widgets (lib/global/widgets/)
+
+- ✅ `spacing.dart` - Spacing widget using gap package
+- ✅ `value_chip.dart` - Category chip widget
+- ✅ `num_title.dart` - Number extension demo widget
+- ✅ `string_title.dart` - String extension demo widget
+- ✅ `color_title.dart` - Color extension demo widget
+- ✅ `date_title.dart` - Date extension demo widget
+- ✅ `bool_title.dart` - Bool extension demo widget
+- ✅ `exporter.dart` - Export all widgets
+
+### Global Utils (lib/global/utils/)
+
+- ✅ `text_label.dart` - TextLabel utility class for demos
 
 ### Data Layer (lib/data/)
 
@@ -43,31 +71,37 @@ This document lists all the files created for your Flutter Extensions training p
 
 ### Features - Cart (lib/features/cart/)
 
-**Data - Providers:**
+**Providers:**
 
-- ✅ `data/providers/cart_provider.dart` - Riverpod cart state management
-- ✅ `data/providers/exporter.dart` - Export providers
+- ✅ `providers/cart_provider.dart` - Riverpod cart state management
+- ✅ `providers/exporter.dart` - Export providers
 
-**Presentation - Widgets:**
+**Widgets:**
 
-- ✅ `presentation/widgets/cart_item_tile.dart` - Cart item display
-- ✅ `presentation/widgets/empty_cart.dart` - Empty cart state
-- ✅ `presentation/widgets/exporter.dart` - Export widgets
+- ✅ `widgets/cart_item_tile.dart` - Cart item display
+- ✅ `widgets/empty_cart.dart` - Empty cart state
+- ✅ `widgets/exporter.dart` - Export widgets
 
-**Presentation - Screen:**
+**Screen:**
 
-- ✅ `presentation/cart_screen.dart` - Main cart screen
+- ✅ `cart_screen.dart` - Main cart screen
 
 ### Features - Products (lib/features/products/)
 
-**Presentation - Widgets:**
+**Widgets:**
 
-- ✅ `presentation/widgets/product_card.dart` - Product card widget
-- ✅ `presentation/widgets/exporter.dart` - Export widgets
+- ✅ `widgets/product_card.dart` - Product card widget
+- ✅ `widgets/exporter.dart` - Export widgets
 
-**Presentation - Screen:**
+**Screen:**
 
-- ✅ `presentation/products_screen.dart` - Main products screen
+- ✅ `products_screen.dart` - Main products screen
+
+### Features - Details (lib/features/details/)
+
+**Screen:**
+
+- ✅ `product_detail_screen.dart` - Product detail with extension demos
 
 ### App Configuration (lib/app/)
 
@@ -90,32 +124,34 @@ This document lists all the files created for your Flutter Extensions training p
 
 ### Files Created
 
-- **Total Files:** 29
-- **Dart Files:** 23
-- **Documentation Files:** 6
-- **Extension Files:** 6
-- **Widget Files:** 5
-- **Model Files:** 2
+- **Total Files:** 45+
+- **Dart Files:** 35+
+- **Documentation Files:** 8
+- **Extension Files:** 8 (context, widget, num, string, list, color, date, bool)
+- **Widget Files:** 12 (5 Title widgets, cart widgets, product widgets)
+- **Model Files:** 2 (Product, CartItem)
 - **Provider Files:** 1
-- **Screen Files:** 2
-- **Config Files:** 2
+- **Screen Files:** 3 (Products, Cart, Detail)
+- **Config Files:** 3 (Theme, App, Main)
 
 ### Lines of Code (Approximate)
 
-- **Dart Code:** ~1,500 lines
-- **Documentation:** ~1,800 lines
-- **Comments:** ~200 lines
-- **Total:** ~3,500 lines
+- **Dart Code:** ~3,000+ lines
+- **Documentation:** ~3,500+ lines
+- **Comments:** ~500+ lines
+- **Total:** ~7,000+ lines
 
 ### Extension Methods
 
-- **Context Extensions:** 12 methods
-- **Widget Extensions:** 15 methods
-- **Number Extensions:** 6 methods
-- **String Extensions:** 4 methods
-- **List Extensions:** 8 methods
-- **Color Extensions:** 5 methods
-- **Total:** 50+ extension methods
+- **Context Extensions:** 12+ methods
+- **Widget Extensions:** 15+ methods
+- **Number Extensions:** 20+ methods
+- **String Extensions:** 12+ methods
+- **List Extensions:** 8+ methods
+- **Color Extensions:** 15+ methods
+- **Date Extensions:** 25+ methods
+- **Bool Extensions:** 7+ methods
+- **Total:** 115+ extension methods
 
 ---
 
@@ -145,10 +181,11 @@ This document lists all the files created for your Flutter Extensions training p
 
 ### ✅ Extensions Showcase
 
-- 6 categories of extensions
-- Real-world usage examples
+- 8 categories of extensions (context, widget, num, string, list, color, date, bool)
+- Real-world usage examples in Product Detail screen
 - Production-ready patterns
-- Well-documented code
+- Well-documented code with TextLabel demo support
+- Title widgets for each extension category
 
 ---
 

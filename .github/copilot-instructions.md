@@ -32,9 +32,9 @@ This is a **training/educational Flutter project** demonstrating Dart extension 
 ## Architecture Overview
 
 **Feature-Driven Structure** with extension-first API design:
-- `lib/global/extensions/` - **Central pattern**: All 6 extension categories (context, widget, num, list, string, color)
+- `lib/global/extensions/` - **Central pattern**: All 6 extension categories (context, widget, num, list, string, color, date, bool)
 - `lib/global/constants/` - Centralized constants (spacing, border_radius, colors, durations, text_styles)
-- `lib/global/widgets/` - Reusable widgets (Spacing with gap package, ValueChip, EmptySpace)
+- `lib/global/widgets/` - Reusable widgets (Spacing with gap package, ValueChip, EmptySpace, Title widgets)
 - `lib/features/` - Feature modules (products, cart) with Riverpod state management
 - `lib/data/` - Models and repositories (no backend, uses sample data)
 - `lib/app/theme/` - Material Design 3 theme configuration
@@ -154,7 +154,49 @@ const EmptySpace()                 // SizedBox.shrink()
 [Widget1(), Widget2()].toColumn(spacing: 8)        // Column with spacing
 [Widget1(), Widget2()].toRow(spacing: 12)          // Row with spacing
 [Widget1(), Widget2()].toListView(separator: Divider())  // ListView with dividers
+
+// Date formatting (using intl package)
+date.toFullDate                    // 'Monday, 15 January 2024'
+date.toShortDate                   // 'Jan 15, 2024'
+date.toISODate                     // '2024-01-15'
+date.toTime12Hour                  // '2:30 PM'
+date.toTime24Hour                  // '14:30'
+date.toRelativeDate                // 'Today', 'Yesterday', or formatted date
+date.timeAgo                       // '5 minutes ago', '2 hours ago'
+
+// Date validation & manipulation
+date.isToday / isYesterday         // Check specific days
+date.isWeekend / isWeekday         // Day type checking
+date.isPast / isFuture             // Temporal validation
+date.addDays(7)                    // Add/subtract days
+date.age                           // Calculate age in years
+date.daysUntil(futureDate)         // Days between dates
+
+// Boolean utilities
+isEnabled.toggle                   // !isEnabled - simple negation
+flag.toYesNo                       // 'Yes' or 'No'
+flag.toOnOff                       // 'ON' or 'OFF'
+flag.toEnabledDisabled             // 'Enabled' or 'Disabled'
+flag.toActiveInactive              // 'Active' or 'Inactive'
+flag.toCheckmark                   // '✓' or '✗'
+flag.toInt                         // 1 or 0
+
+// String case conversions
+text.toCamelCase                   // 'helloWorld'
+text.toPascalCase                  // 'HelloWorld'
+text.toSnakeCase                   // 'hello_world'
+text.toKebabCase                   // 'hello-world'
+text.toTitleCase                   // 'Hello World'
+
+// Color utilities
+color.toHex                        // 'FF00297F' - ARGB HEX
+color.toHexNoAlpha                 // '00297F' - RGB HEX
+color.toHexNoAlphaWithHash         // '#00297F' - with hash prefix
+color.toIntValue                   // 4278198911 - 32-bit ARGB int
+'#00297F'.toColor                  // Color object from HEX string
+'00297F'.toColorOr(Colors.blue)    // Safe parsing with fallback
 ```
+
 
 ### Widget Extension Patterns
 
@@ -177,6 +219,13 @@ widget.container(width: 200, color: Colors.blue)
 widget.onTap(() => print('Tapped'))
 widget.hero('unique-tag')
 widget.visible(isLoggedIn)         // Conditional rendering
+
+// Boolean toggle in StatefulWidget (see StringTitle for real example)
+onExpansionChanged: (value) {
+  setState(() {
+    showChip = showChip.toggle;    // Toggles chip visibility
+  });
+}
 ```
 
 ## Key Files & Patterns
@@ -187,7 +236,9 @@ widget.visible(isLoggedIn)         // Conditional rendering
 - **num_extensions.dart** - Currency (toUSD, toKES, toUGX, toEUR, toGBP), number formatting (formatWithCommas, formatCompact), discounts (discount20/30/50), validation (isValidPrice, isValidQuantity), TextLabel conversion
 - **list_extensions.dart** - toColumn/toRow/toListView with auto-spacing via `divide(separator)`
 - **string_extensions.dart** - Case conversion (camelCase, snake_case, PascalCase, etc.), validation (isValidEmail), TextLabel conversion
-- **color_extensions.dart** - Color manipulation utilities
+- **color_extensions.dart** - HEX/integer conversion (toHex, toIntValue), String-to-Color parsing (toColor), opacity manipulation, TextLabel conversion
+- **date_extensions.dart** - 20+ date formatters (toFullDate, toISODate, timeAgo), validation (isToday, isWeekend), manipulation (addDays, age), TextLabel conversion
+- **bool_extensions.dart** - Toggle functionality, text format conversions (toYesNo, toOnOff, toCheckmark), TextLabel conversion
 
 ### Constants (lib/global/constants/)
 - **spacing.dart** - spacing2, spacing4, spacing8, spacing12, spacing16, spacing20, spacing24, spacing32, spacing48, spacing64
@@ -199,6 +250,11 @@ widget.visible(isLoggedIn)         // Conditional rendering
 ### Widgets (lib/global/widgets/)
 - **spacing.dart** - `Spacing(of: double)` using gap package, `SliverSpacing`, `EmptySpace`
 - **value_chip.dart** - Chip widget for displaying category badges
+- **num_title.dart** - ExpansionTile widget demonstrating all num extension formats
+- **string_title.dart** - ExpansionTile widget demonstrating string extensions with toggle functionality
+- **color_title.dart** - ExpansionTile widget demonstrating color conversions and formats
+- **date_title.dart** - ExpansionTile widget demonstrating date formatters
+- **bool_title.dart** - ExpansionTile widget demonstrating boolean formats with icon indicators
 
 ### TextLabel Utility (lib/global/utils/)
 - **text_label.dart** - Simple class for label/value pairs used in demo UIs
@@ -337,9 +393,9 @@ import '../../app_exporter.dart';  // Includes: extensions, constants, widgets, 
 ```
 
 This single import provides access to:
-- All extensions (context, widget, num, list, string, color)
+- All extensions (context, widget, num, list, string, color, date, bool)
 - All constants (spacing, borderRadius, colors, durations, textStyles)
-- All global widgets (Spacing, ValueChip, EmptySpace)
+- All global widgets (Spacing, ValueChip, EmptySpace, Title widgets)
 - All models and providers
 - Flutter/Riverpod/GoogleFonts packages
 
@@ -461,6 +517,8 @@ MaterialApp(
 
 ## Documentation Style
 
+### Dart/Flutter Documentation Comments
+
 When writing documentation comments:
 - **Use `///` for doc comments**: Enables documentation generation
 - **Start with single-sentence summary**: Concise user-centric summary ending with period
@@ -481,6 +539,93 @@ String get toCurrency {
   return '\$${toStringAsFixed(2).replaceAllMapped(...)}';
 }
 ```
+
+### Markdown File Standards
+
+When creating or editing ANY markdown file (including this instructions file, README.md, documentation, etc.), strictly follow these formatting rules:
+
+#### Headings
+- **Incremental levels**: Increase heading levels by only one at a time (MD001)
+- **ATX style**: Use `#` for headings, not underline style (MD003)
+- **Spacing after hash**: Single space after `#` characters (MD018, MD019)
+- **Surrounding blank lines**: Headings must have blank lines before and after (MD022)
+- **Start at line beginning**: No indentation before headings (MD023)
+- **No duplicate headings**: Avoid multiple headings with identical text (MD024)
+- **Single top-level heading**: Only one H1 (`#`) per document (MD025)
+- **No trailing punctuation**: Remove `.,;:!` from heading endings (MD026)
+- **First line is H1**: Document must start with top-level heading (MD041)
+
+#### Lists
+- **Consistent markers**: Use same symbol (`*`, `-`, `+`) throughout unordered lists (MD004)
+- **Consistent indentation**: List items at same level use same indent (MD005)
+- **2-space indent**: Nested lists indent by 2 spaces (MD007)
+- **Single space after marker**: One space between marker and text (MD030)
+- **Surrounding blank lines**: Lists must have blank lines before and after (MD032)
+- **Ordered list prefix**: Use `1.` for all items or sequential numbering (MD029)
+
+#### Code Blocks
+- **Fenced with language**: Always specify language in fenced code blocks (MD040)
+- **Surrounding blank lines**: Code blocks must have blank lines before and after (MD031)
+- **Consistent fence style**: Use backticks (\`\`\`) consistently, not tildes (MD048)
+- **Remove command prompts**: Don't use `$` in code blocks unless showing output (MD014)
+
+#### Whitespace & Spacing
+- **No trailing spaces**: Remove trailing whitespace from lines (MD009)
+- **No hard tabs**: Use spaces, never tab characters (MD010)
+- **No multiple blank lines**: Maximum one consecutive blank line (MD012)
+- **Line length**: Keep lines ≤80 characters where possible (MD013)
+- **Single trailing newline**: File must end with exactly one newline (MD047)
+
+#### Links & URLs
+- **No reversed syntax**: Use `[text](url)` not `(text)[url]` (MD011)
+- **Angle brackets for bare URLs**: Use `<https://example.com>` for bare URLs (MD034)
+- **No empty links**: All links must have destinations (MD042)
+- **Valid fragments**: Link fragments must match existing headings (MD051)
+- **Define reference links**: All reference-style links must be defined (MD052)
+- **No spaces in link text**: Remove spaces inside `[` `]` (MD039)
+
+#### Emphasis & Formatting
+- **No emphasis as heading**: Use proper headings, not bold/italic text for sections (MD036)
+- **No spaces in emphasis**: No spaces inside `*` or `_` markers (MD037)
+- **No spaces in code spans**: No spaces inside backticks unless intentional (MD038)
+- **Consistent emphasis style**: Use `*` for italic, `**` for bold throughout (MD049, MD050)
+
+#### Images
+- **Alt text required**: All images must have descriptive alt text (MD045)
+
+#### Blockquotes
+- **Single space after `>`**: Only one space after blockquote symbol (MD027)
+- **No blank lines inside**: Don't separate blockquotes with blank lines (MD028)
+
+#### Other
+- **Consistent horizontal rules**: Use same style (`---`) for all HRs (MD035)
+- **Proper names capitalization**: Match exact capitalization in `names` list (MD044)
+
+#### Special Handling for Code Examples
+
+When showing "before/after" or "incorrect/correct" examples:
+- Wrap violations in disable/restore comments:
+
+<!-- markdownlint-disable rule-name -->
+```markdown
+Bad example here
+```
+<!-- markdownlint-restore -->
+
+Good example here (no disable needed)
+
+#### Quick Checklist for Every Markdown File
+
+Before completing any markdown file creation/edit:
+- ✅ Single H1 at top
+- ✅ All headings surrounded by blank lines
+- ✅ No trailing whitespace
+- ✅ Fenced code blocks have language specified
+- ✅ Consistent list markers and indentation
+- ✅ Line length ≤80 chars (where feasible)
+- ✅ File ends with single newline
+- ✅ All links are valid and properly formatted
+- ✅ No hard tabs, only spaces
 
 ## What This Project Is NOT
 
