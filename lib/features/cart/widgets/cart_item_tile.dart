@@ -66,7 +66,7 @@ class CartItemTile extends ConsumerWidget {
                 ),
                 const Spacing(of: 8),
                 Text(
-                  item.product.price.toCurrency,
+                  item.product.priceText,
                   style: context.textTheme.titleMedium
                       ?.copyWith(
                         color: context.colorScheme.primary,

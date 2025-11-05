@@ -167,6 +167,9 @@ extension StringExtensions on String {
     return words.map((w) => w[0].toUpperCase()).join();
   }
 
+  /// splits a string by space
+  List<String> get asList => split(' ');
+
   /// Capitalizes the first letter of the string.
   ///
   /// Example:
@@ -383,6 +386,8 @@ extension StringExtensions on String {
         convertedValue = withQuotes;
       case 'initials':
         convertedValue = asInitials;
+        case 'as list':
+        convertedValue = asList.toString();
       default:
         convertedValue = this;
     }
@@ -408,6 +413,7 @@ extension StringExtensions on String {
       'lower case',
       'with quotes',
       'initials',
+      'as list',
     ];
 
     return cases.map(asTextLabel).toList();

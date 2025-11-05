@@ -117,7 +117,7 @@ class CartScreen extends ConsumerWidget {
                                   .merge(regularTextStyle),
                             ),
                             Text(
-                              totalPrice.toCurrency,
+                              totalPrice.formatWithCommas,
                               style: context.textTheme.headlineSmall
                                   ?.copyWith(
                                     color: context.colorScheme.primary,

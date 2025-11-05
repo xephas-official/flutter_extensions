@@ -1,3 +1,5 @@
+import '../../global/extensions/num_extensions.dart';
+
 /// Represents a product in the shopping cart
 class Product {
   /// Constructor
@@ -39,6 +41,9 @@ class Product {
 
   /// Category of the product
   final String category;
+
+  /// getter price text
+  String get priceText => price.formatWithCommas;
 
   /// Converts Product to map
   Map<String, dynamic> toMap() {

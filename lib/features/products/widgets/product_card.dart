@@ -103,7 +103,7 @@ class ProductCard extends ConsumerWidget {
 
                     // Price
                     Text(
-                      product.price.toCurrency,
+                      product.priceText,
                       style: context.textTheme.titleLarge
                           ?.copyWith(
                             color: itemInCart

@@ -6,6 +6,9 @@ const Color blue = Color(0xFF0058AB);
 /// other blue
 const blueAccent = Color(0xFF2962FF);
 
+/// orange
+const Color orange = Color(0xFFFF6D00);
+
 /// red
 const Color red = Color(0xFFAC0900);
 

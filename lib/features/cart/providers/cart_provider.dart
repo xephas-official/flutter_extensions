@@ -2,7 +2,7 @@ import '../../../app_exporter.dart';
 
 /// Cart state notifier
 class CartNotifier extends StateNotifier<List<CartItem>> {
-  
+  /// notifier constructor
   CartNotifier() : super([]);
 
   /// Add a product to cart
