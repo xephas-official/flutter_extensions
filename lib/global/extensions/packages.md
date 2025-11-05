@@ -11,4 +11,11 @@ Here are some popular Flutter packages that leverage the power of extensions to 
 3. **Sizer**: Sizer is a package that provides extension methods for responsive design in Flutter. It allows you to easily adapt your UI to different screen sizes and orientations using extension methods on numbers.
     - [Sizer on pub.dev](https://pub.dev/packages/sizer)
 
+4. Time
+: This package adds extension methods to the `int` and `Duration` classes, making it easier to work with time durations and perform time-related calculations.
+    - [Time on pub.dev](https://pub.dev/packages/time)
+
+5. Dart Extensions: This package offers a collection of useful extension methods for various Dart types, including strings, lists, maps, and more. It aims to simplify common tasks and improve code readability.
+    - [Dart Extensions on pub.dev](https://pub.dev/packages/dart_extensions)
+
 These packages demonstrate how extensions can be used to enhance the functionality of Flutter and Dart, making it easier for developers to build robust applications.

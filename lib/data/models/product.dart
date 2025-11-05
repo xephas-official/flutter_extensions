@@ -12,6 +12,7 @@ class Product {
     required this.dateManufactured,
     this.category = 'General',
     this.colors = const [],
+    this.inStock = true,
   });
 
   /// Factory constructor to create a Product from a map
@@ -31,6 +32,7 @@ class Product {
               ?.map((c) => Color(c as int))
               .toList() ??
           [],
+      inStock: map['inStock'] as bool? ?? true,
     );
   }
 
@@ -58,6 +60,9 @@ class Product {
   /// Available colors for the product
   final List<Color> colors;
 
+  /// Whether the product is in stock
+  final bool inStock;
+
   /// getter price text
   String get priceText => price.formatWithCommas;
 
@@ -80,6 +85,7 @@ class Product {
                 c.b.toInt(),
           )
           .toList(),
+      'inStock': inStock,
     };
   }
 
@@ -93,6 +99,7 @@ class Product {
     String? category,
     DateTime? dateManufactured,
     List<Color>? colors,
+    bool? inStock,
   }) {
     return Product(
       id: id ?? this.id,
@@ -103,6 +110,7 @@ class Product {
       category: category ?? this.category,
       dateManufactured: dateManufactured ?? this.dateManufactured,
       colors: colors ?? this.colors,
+      inStock: inStock ?? this.inStock,
     );
   }
 

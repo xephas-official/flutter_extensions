@@ -30,6 +30,7 @@ class ProductRepository {
         category: 'Electronics',
         dateManufactured: DateTime(2024, 8, 22),
         colors: getRandomColors(4),
+        inStock: false,
       ),
       Product(
         id: '3',
@@ -60,6 +61,7 @@ class ProductRepository {
         category: 'Accessories',
         dateManufactured: DateTime(2024, 1, 18),
         colors: getRandomColors(3),
+        inStock: false,
       ),
       Product(
         id: '6',
@@ -90,6 +92,7 @@ class ProductRepository {
         category: 'Electronics',
         dateManufactured: DateTime(2024, 7, 12),
         colors: getRandomColors(3),
+        inStock: false,
       ),
     ];
   }

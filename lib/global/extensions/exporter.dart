@@ -1,3 +1,4 @@
+export 'bool_extensions.dart';
 export 'color_extensions.dart';
 export 'context_extensions.dart';
 export 'date_extensions.dart';

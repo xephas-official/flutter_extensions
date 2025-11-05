@@ -101,6 +101,11 @@ class ProductDetailScreen extends ConsumerWidget {
                   ),
                 ],
 
+                const Spacing(of: spacing32),
+
+                // Stock status section (demonstrating bool extensions)
+                BoolTitle(labelBool: product.inStock),
+
                 const Spacing(of: spacing64 * 2),
               ],
             ),

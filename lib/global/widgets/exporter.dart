@@ -1,3 +1,4 @@
+export 'bool_title.dart';
 export 'color_title.dart';
 export 'date_title.dart';
 export 'num_title.dart';

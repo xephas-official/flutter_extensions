@@ -1,43 +1,33 @@
 // this will be a text widget as extension tile showing various extension methods
-import 'package:flutter/cupertino.dart';
 
 import '../../../app_exporter.dart';
 
 /// advanced form label that also shows the hint
-class StringTitle extends StatefulWidget {
+class BoolTitle extends StatelessWidget {
   /// constructor
-  const StringTitle({
-    required this.labelText,
+  const BoolTitle({
+    required this.labelBool,
     super.key,
+    this.initiallyExpanded = false,
     this.labelTextColor = black,
   });
 
-  /// label text
-  final String labelText;
+  /// is open
+  final bool initiallyExpanded;
+
+  /// label boolean
+  final bool labelBool;
 
   /// label color
   final Color labelTextColor;
 
   @override
-  State<StringTitle> createState() => _StringTitleState();
-}
-
-class _StringTitleState extends State<StringTitle> {
-  bool isExpanded = false;
-  bool showChip = true;
-
-  @override
   Widget build(BuildContext context) {
+    const backColor = red;
+
     return ExpansionTile(
       tilePadding: allInsets2,
-      initiallyExpanded: isExpanded,
-      onExpansionChanged: (value) {
-        setState(() {
-          isExpanded = value;
-          // Toggle the chip visibility using bool extension
-          showChip = showChip.toggle;
-        });
-      },
+      initiallyExpanded: initiallyExpanded,
       minTileHeight: 8,
       title: Wrap(
         // Use spacing and runSpacing for desired gaps between elements
@@ -47,38 +37,44 @@ class _StringTitleState extends State<StringTitle> {
         crossAxisAlignment: WrapCrossAlignment.center,
 
         children: [
+          // Boolean icon display
+          Icon(
+            labelBool ? Icons.check_circle : Icons.cancel,
+            color: labelBool ? appGreen : red,
+            size: 32,
+          ),
+
+          const Spacing(of: spacing8),
+
           // label
           Text(
-            widget.labelText,
+            'In Stock: ${labelBool.toString().inUpperCase}',
             textAlign: TextAlign.start,
             style: boldTextStyle.copyWith(
-              fontSize: fontSize20,
-              color: widget.labelTextColor,
+              fontSize: fontSize24,
+              color: labelTextColor,
             ),
           ),
 
           // pill like chip to show required or optional
           // Category chip
-          if (showChip)
-            ValueChip(
-              backColor: blueAccent,
-              textColor: white,
-              valueText: 'String Extensions'.inUpperCase,
-              fadeBack: false,
-            ),
+          ValueChip(
+            backColor: backColor,
+            textColor: white,
+            valueText: 'Bool Extensions'.inUpperCase,
+            fadeBack: false,
+          ),
         ],
       ),
 
       /// expanded styling
       shape: const RoundedRectangleBorder(borderRadius: borderRadius8),
       backgroundColor: transparent,
-      // backgroundColor: appBackground,
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       expandedAlignment: Alignment.centerLeft,
 
       /// collapsed
       collapsedBackgroundColor: transparent,
-      // collapsedBackgroundColor: whiteColor.withValues(alpha: .1),
       collapsedShape: const RoundedRectangleBorder(borderRadius: borderRadius8),
 
       /// children
@@ -89,14 +85,14 @@ class _StringTitleState extends State<StringTitle> {
           padding: allInsets16,
           decoration: BoxDecoration(
             borderRadius: borderRadius8,
-            color: blueAccent.withValues(alpha: .05),
+            color: backColor.withValues(alpha: .05),
             border: Border.all(
-              color: blueAccent.withValues(alpha: .4),
+              color: backColor.withValues(alpha: .4),
             ),
           ),
           child: Column(
             spacing: spacing4,
-            children: widget.labelText.toTextLabels.map(
+            children: labelBool.toTextLabels.map(
               (textLabel) {
                 // title
                 final title = textLabel.label;
@@ -110,28 +106,22 @@ class _StringTitleState extends State<StringTitle> {
                     Expanded(
                       child: Text(
                         '• $title',
-                        textAlign: TextAlign.start,
-                        style: boldTextStyle.copyWith(
+                        style: regularTextStyle.copyWith(
                           fontSize: fontSize14,
-                          color: black,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
 
-                    // arrow icon
-                    const Icon(
-                      CupertinoIcons.arrow_right,
-                      size: 12,
-                      color: black,
-                    ),
                     // value
                     Flexible(
-                      child: Text(
+                      child: SelectableText(
                         value,
-                        textAlign: TextAlign.start,
-                        style: normalTextStyle.copyWith(
+                        textAlign: TextAlign.end,
+                        style: regularTextStyle.copyWith(
                           fontSize: fontSize14,
-                          color: widget.labelTextColor,
+                          color: backColor,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
