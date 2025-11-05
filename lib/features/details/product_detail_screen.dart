@@ -79,6 +79,28 @@ class ProductDetailScreen extends ConsumerWidget {
                 const Spacing(of: spacing12),
                 DetailsGrid(product: product),
 
+                const Spacing(of: spacing32),
+
+                // Manufacturing date section (demonstrating date extensions)
+                DateTitle(labelDate: product.dateManufactured),
+
+                const Spacing(of: spacing32),
+
+                // Available colors section (demonstrating color extensions)
+                if (product.colors.isNotEmpty) ...[
+                  Text(
+                    'Available Colors',
+                    style: boldTextStyle.copyWith(
+                      fontSize: fontSize20,
+                      color: context.colorScheme.onSurface,
+                    ),
+                  ),
+                  const Spacing(of: spacing12),
+                  ...product.colors.map(
+                    (color) => ColorTitle(labelColor: color),
+                  ),
+                ],
+
                 const Spacing(of: spacing64 * 2),
               ],
             ),

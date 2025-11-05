@@ -1,4 +1,4 @@
-import '../../global/extensions/num_extensions.dart';
+import '../../app_exporter.dart';
 
 /// Represents a product in the shopping cart
 class Product {
@@ -9,7 +9,9 @@ class Product {
     required this.description,
     required this.price,
     required this.imageUrl,
+    required this.dateManufactured,
     this.category = 'General',
+    this.colors = const [],
   });
 
   /// Factory constructor to create a Product from a map
@@ -21,6 +23,14 @@ class Product {
       price: (map['price'] as num?)?.toDouble() ?? 0.0,
       imageUrl: map['imageUrl'] as String? ?? '',
       category: map['category'] as String? ?? 'General',
+      dateManufactured: map['dateManufactured'] != null
+          ? DateTime.parse(map['dateManufactured'] as String)
+          : DateTime.now(),
+      colors:
+          (map['colors'] as List<dynamic>?)
+              ?.map((c) => Color(c as int))
+              .toList() ??
+          [],
     );
   }
 
@@ -42,6 +52,12 @@ class Product {
   /// Category of the product
   final String category;
 
+  /// Date when the product was manufactured
+  final DateTime dateManufactured;
+
+  /// Available colors for the product
+  final List<Color> colors;
+
   /// getter price text
   String get priceText => price.formatWithCommas;
 
@@ -54,6 +70,16 @@ class Product {
       'price': price,
       'imageUrl': imageUrl,
       'category': category,
+      'dateManufactured': dateManufactured.toIso8601String(),
+      'colors': colors
+          .map(
+            (c) =>
+                (c.a.toInt() << 24) |
+                (c.r.toInt() << 16) |
+                (c.g.toInt() << 8) |
+                c.b.toInt(),
+          )
+          .toList(),
     };
   }
 
@@ -65,6 +91,8 @@ class Product {
     double? price,
     String? imageUrl,
     String? category,
+    DateTime? dateManufactured,
+    List<Color>? colors,
   }) {
     return Product(
       id: id ?? this.id,
@@ -73,6 +101,8 @@ class Product {
       price: price ?? this.price,
       imageUrl: imageUrl ?? this.imageUrl,
       category: category ?? this.category,
+      dateManufactured: dateManufactured ?? this.dateManufactured,
+      colors: colors ?? this.colors,
     );
   }
 

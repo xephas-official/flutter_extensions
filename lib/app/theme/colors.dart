@@ -29,3 +29,15 @@ const Color backgroundColor = Color(0xFFFFFBFE);
 
 /// Navy blue for dark scenarios
 const Color navyBlue = Color(0xFF00297F);
+
+/// random colors
+/// generated from these existing colors
+final List<Color> randomColors = [
+  blue,
+  orange,
+  red,
+  appGreen,
+  navyBlue,
+  blueAccent,
+  black,
+];
