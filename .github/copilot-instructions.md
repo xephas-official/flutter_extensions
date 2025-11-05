@@ -108,10 +108,42 @@ blue, appGreen, white, black       // Color values
 halfSecond, oneSecond              // Duration values
 
 // Number utilities (reduces boilerplate for spacing and formatting)
-16.heightBox                       // SizedBox(height: 16) - use Spacing widget instead
+16.heightBox                       // SizedBox(height: 16) - DEPRECATED: use Spacing widget instead
 12.paddingAll                      // EdgeInsets.all(12)
-8.borderRadius                     // BorderRadius.circular(8) - use borderRadius8 constant
-price.toCurrency                   // Formatted: '$123.45' with comma separators
+8.borderRadius                     // BorderRadius.circular(8) - DEPRECATED: use borderRadius8 constant
+
+// Currency formatting (using intl package)
+price.toUSD                        // '$1,234.56' - US Dollar format
+price.toKES                        // 'KES 1,234.56' - Kenyan Shilling
+price.toUGX                        // 'UGX 1,234' - Ugandan Shilling (no decimals)
+price.toEUR                        // '€1,234.56' - Euro
+price.toGBP                        // '£1,234.56' - British Pound
+
+// Number formatting
+amount.formatWithCommas            // '1,234,567' - thousand separators
+amount.formatCompact               // '1.2K', '3.4M', '5.6B' - compact notation
+amount.format                      // Smart: compact for >9999, commas otherwise
+amount.toDecimal(2)                // '123.45' - specific decimal places
+amount.toPercent                   // '45.5%' - percentage format
+
+// Discount & pricing shortcuts (for cart app)
+price.discount20                   // Apply 20% off: 100 → 80.0
+price.discount30                   // Apply 30% off: 100 → 70.0
+price.discount50                   // Apply 50% off: 100 → 50.0
+price.markup20                     // Add 20% markup: 100 → 120.0
+price.discountAmount20             // Get savings: 100 → 20.0
+
+// Validation helpers
+quantity.isZero / isNotZero        // Check zero values
+amount.isPositive / isNegative     // Sign checking
+price.isValidPrice                 // 0 < price < 1,000,000
+quantity.isValidQuantity           // Positive whole number
+
+// TextLabel conversion (for demo UIs)
+price.toTextLabels                 // All 20 format variations
+price.toCurrencyLabels             // All 5 currency formats
+price.toDiscountLabels             // All discount variations
+price.toFormatLabels               // All number formats
 
 // Spacing widget (gap package - preferred over SizedBox)
 const Spacing(of: 12)              // Auto-adapts: vertical in Column, horizontal in Row
@@ -152,9 +184,9 @@ widget.visible(isLoggedIn)         // Conditional rendering
 ### Extension Categories (lib/global/extensions/)
 - **context_extensions.dart** - Theme, MediaQuery, navigation shortcuts
 - **widget_extensions.dart** - Padding, layout wrappers, card/container builders
-- **num_extensions.dart** - Spacing (heightBox/widthBox), padding, currency formatting
+- **num_extensions.dart** - Currency (toUSD, toKES, toUGX, toEUR, toGBP), number formatting (formatWithCommas, formatCompact), discounts (discount20/30/50), validation (isValidPrice, isValidQuantity), TextLabel conversion
 - **list_extensions.dart** - toColumn/toRow/toListView with auto-spacing via `divide(separator)`
-- **string_extensions.dart** - Case conversion, validation
+- **string_extensions.dart** - Case conversion (camelCase, snake_case, PascalCase, etc.), validation (isValidEmail), TextLabel conversion
 - **color_extensions.dart** - Color manipulation utilities
 
 ### Constants (lib/global/constants/)
@@ -167,6 +199,12 @@ widget.visible(isLoggedIn)         // Conditional rendering
 ### Widgets (lib/global/widgets/)
 - **spacing.dart** - `Spacing(of: double)` using gap package, `SliverSpacing`, `EmptySpace`
 - **value_chip.dart** - Chip widget for displaying category badges
+
+### TextLabel Utility (lib/global/utils/)
+- **text_label.dart** - Simple class for label/value pairs used in demo UIs
+- Pattern: Extensions provide `toTextLabels` getters that return `List<TextLabel>` for all format variations
+- Used by `num_extensions.dart` and `string_extensions.dart` to demonstrate all formatting options
+- Example: `price.toTextLabels` returns all 20 number format variations for UI display
 
 ### State Management Pattern
 ```dart
@@ -412,6 +450,7 @@ MaterialApp(
 - **google_fonts** (^6.2.1) - Raleway font family
 - **uuid** (^4.5.1) - Unique ID generation
 - **gap** (^3.0.1) - Spacing widgets that adapt to parent direction (Column/Row)
+- **intl** (^0.20.2) - Internationalization and number/currency formatting
 
 ## Documentation References
 
