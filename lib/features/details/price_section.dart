@@ -18,11 +18,11 @@ class PriceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(spacing16),
+      padding: allInsets8,
       decoration: BoxDecoration(
         color: itemInCart
             ? appGreen.withValues(alpha: 0.1)
-            : context.colorScheme.surfaceContainerHighest,
+            : blueAccent.withValues(alpha: 0.05),
         borderRadius: borderRadius12,
         border: Border.all(
           color: itemInCart ? appGreen : context.colorScheme.outline,
@@ -36,13 +36,13 @@ class PriceSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Spacing(of: spacing4),
                 Text(
                   'Price',
                   style: context.textTheme.bodyMedium?.copyWith(
                     color: context.colorScheme.onSurfaceVariant,
                   ),
                 ),
-                const Spacing(of: spacing4),
                 NumTitle(labelText: price),
               ],
             ),
