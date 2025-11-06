@@ -1,10 +1,19 @@
 # 🛒 Flutter Extensions - Mini Shopping Cart Demo
 
-> A comprehensive Flutter application demonstrating the power of Dart extension methods through a practical shopping cart implementation.
+> A comprehensive Flutter application demonstrating the power of Dart
+> extension methods through a practical shopping cart implementation.
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.9.2-02569B?logo=flutter)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.9.2-0175C2?logo=dart)](https://dart.dev)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+![App Icon](screenshots/play_store_512.png)
+
+## 📱 App Screenshots
+
+![Products Screen](screenshots/home-products-screen.png)
+![Details Screen](screenshots/details-extensions-screen.png)
+![Cart Screen](screenshots/cart-screen.png)
 
 ---
 
@@ -130,10 +139,11 @@ flutter run
 
 ### Product Catalog
 
-- 📦 Grid view with 8 sample products
+- 📦 List view with 8 sample products
 - 🏷️ Category filtering (Electronics, Home, Sports, Accessories)
 - 🎨 Beautiful Material Design 3 UI
-- 📱 Responsive layout (adapts to screen size)
+- 📱 Responsive layout
+- ✨ Product details with extension demonstrations
 
 ### Shopping Cart
 
@@ -143,6 +153,21 @@ flutter run
 - 💰 Real-time total calculation
 - 🛒 Cart badge showing item count
 - 📊 Empty state when no items
+
+### Extension Demonstrations
+
+- 🔢 **Number Extensions** - Currency formatting, discount calculations,
+  price validation
+- 📝 **String Extensions** - Case conversions (camelCase, snake_case,
+  PascalCase, etc.)
+- 🎨 **Color Extensions** - HEX conversion, color manipulation
+- 📅 **Date Extensions** - 20+ date formatters (toFullDate, timeAgo,
+  isToday, etc.)
+- ✅ **Boolean Extensions** - Toggle, text conversions (toYesNo, toOnOff,
+  toCheckmark)
+- 📋 **List Extensions** - Auto-spaced layouts (toColumn, toRow)
+- 🎭 **Context Extensions** - Theme, MediaQuery, navigation shortcuts
+- 🧩 **Widget Extensions** - Padding, layout wrappers, fluent composition
 
 ---
 
@@ -217,8 +242,6 @@ widget.card(elevation: 4).center.paddingAll(16)
 **Before:**
 
 ```dart
-SizedBox(height: 16)
-EdgeInsets.all(12)
 Text('\$${price.toStringAsFixed(2).replaceAllMapped(
   RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), 
   (m) => '${m[1]},'
@@ -228,9 +251,9 @@ Text('\$${price.toStringAsFixed(2).replaceAllMapped(
 **After:**
 
 ```dart
-16.heightBox
-12.paddingAll
-Text(price.toCurrency)  // '$1,234.56'
+Text(price.toUSD)           // '$1,234.56'
+Text(price.formatWithCommas) // '1,234'
+Text(price.discount20)       // Apply 20% discount
 ```
 
 **Impact:** Eliminates repetitive formatting code, enforces consistency.
@@ -239,9 +262,10 @@ Text(price.toCurrency)  // '$1,234.56'
 
 ```dart
 // Case conversion
-'userId'.inCamelCase      // 'userId'
-'user_id'.inSnakeCase     // 'user_id'
-'userId'.inSnakeCase      // 'user_id'
+'userId'.toCamelCase       // 'userId'
+'user_id'.toSnakeCase      // 'user_id'
+'userId'.toSnakeCase       // 'user_id'
+'hello world'.toPascalCase // 'HelloWorld'
 
 // Validation
 'test@email.com'.isValidEmail  // true
@@ -249,6 +273,46 @@ Text(price.toCurrency)  // '$1,234.56'
 
 // Formatting
 'hello'.capitalize         // 'Hello'
+'hello world'.toTitleCase  // 'Hello World'
+```
+
+### Color Extensions - HEX and Manipulation
+
+```dart
+// Color to HEX
+color.toHex                    // 'FF00297F' (ARGB)
+color.toHexNoAlpha             // '00297F' (RGB)
+color.toHexNoAlphaWithHash     // '#00297F'
+
+// HEX to Color
+'#00297F'.toColor              // Color object
+'00297F'.toColorOr(Colors.blue) // Safe parsing with fallback
+```
+
+### Date Extensions - Comprehensive Formatting
+
+```dart
+// Date formatting
+date.toFullDate                // 'Monday, 15 January 2024'
+date.toShortDate               // 'Jan 15, 2024'
+date.toISODate                 // '2024-01-15'
+date.toTime12Hour              // '2:30 PM'
+date.timeAgo                   // '5 minutes ago'
+
+// Date validation
+date.isToday / date.isYesterday
+date.isWeekend / date.isWeekday
+date.isPast / date.isFuture
+```
+
+### Boolean Extensions - Text Conversions
+
+```dart
+isEnabled.toggle               // !isEnabled
+flag.toYesNo                   // 'Yes' or 'No'
+flag.toOnOff                   // 'ON' or 'OFF'
+flag.toCheckmark               // '✓' or '✗'
+flag.toInt                     // 1 or 0
 ```
 
 ### List Extensions - Auto-Spaced Layouts
@@ -259,9 +323,9 @@ Text(price.toCurrency)  // '$1,234.56'
 Column(
   children: [
     Text('One'),
-    SizedBox(height: 8),
+    const Spacing(of: 8),
     Text('Two'),
-    SizedBox(height: 8),
+    const Spacing(of: 8),
     Text('Three'),
   ],
 )
@@ -277,7 +341,7 @@ Column(
 ].toColumn(spacing: 8)
 ```
 
-**Impact:** Automatic spacing insertion, no manual SizedBox widgets.
+**Impact:** Automatic spacing insertion, cleaner list-to-widget conversion.
 
 [View complete extension cheatsheet →](docs/EXTENSION_CHEATSHEET.md)
 
@@ -324,14 +388,17 @@ This project demonstrates **real-world architectural patterns**:
 lib/
 ├── app/                    # Application setup & theme
 ├── global/
-│   ├── extensions/        # ⭐ ALL EXTENSIONS HERE (6 categories)
+│   ├── extensions/        # ⭐ ALL EXTENSIONS HERE (8 categories)
 │   ├── constants/         # Centralized design tokens
-│   └── widgets/          # Reusable components (Spacing, ValueChip)
+│   ├── widgets/          # Reusable components (Spacing, ValueChip,
+│   │                      # Title widgets)
+│   └── utils/            # TextLabel utility for demos
 ├── data/
 │   ├── models/           # Product, CartItem (immutable)
 │   └── repositories/     # Sample data provider
 └── features/
     ├── products/         # Product catalog with filtering
+    ├── details/         # Product detail with extension demos
     └── cart/            # Shopping cart with Riverpod
 ```
 
@@ -339,16 +406,30 @@ lib/
 
 1. **context_extensions.dart** - Theme, MediaQuery, Navigation shortcuts
 2. **widget_extensions.dart** - Padding, layout wrappers, Material helpers
-3. **num_extensions.dart** - Spacing, formatting, currency
-4. **list_extensions.dart** - Auto-spaced Column/Row/ListView builders
-5. **string_extensions.dart** - Case conversion, validation
-6. **color_extensions.dart** - Color manipulation utilities
+3. **num_extensions.dart** - Currency (toUSD, toKES, toEUR, toGBP),
+   formatting, discounts
+4. **string_extensions.dart** - Case conversion (camelCase, snake_case,
+   PascalCase, etc.), validation
+5. **list_extensions.dart** - Auto-spaced Column/Row/ListView builders
+6. **color_extensions.dart** - HEX conversion, color manipulation
+7. **date_extensions.dart** - 20+ date formatters (toFullDate, timeAgo,
+   isToday, etc.)
+8. **bool_extensions.dart** - Toggle, text conversions (toYesNo, toOnOff,
+   toCheckmark)
 
 ### State Management
 
 - **Riverpod** for cart state and derived values
 - **StateNotifier** pattern with immutable updates
 - Computed providers for item count and total price
+
+### Key Packages
+
+- **flutter_riverpod** (^2.6.1) - State management
+- **google_fonts** (^6.2.1) - Raleway font family
+- **uuid** (^4.5.1) - Unique ID generation
+- **gap** (^3.0.1) - Spacing widgets (Column/Row auto-adapt)
+- **intl** (^0.20.2) - Number/currency formatting
 
 [View detailed architecture →](docs/PROJECT_SUMMARY.md)
 
@@ -359,29 +440,35 @@ lib/
 ```dart
 // Product card with extensions
 Widget build(BuildContext context, WidgetRef ref) {
-  return [
-    Text(product.imageUrl, style: TextStyle(fontSize: 64))
-      .container(height: 120, color: context.colorScheme.surfaceContainerHighest)
-      .hero('product_${product.id}'),
-    
-    [
-      Text(product.name, style: context.textTheme.titleMedium),
-      Text(product.description),
-      8.heightBox,
-      [
-        Text(product.price.toCurrency).expanded,
-        FilledButton.icon(
-          icon: Icon(Icons.add_shopping_cart),
-          label: Text('Add'),
-          onPressed: () => ref.read(cartProvider.notifier).addProduct(product),
+  return Container(
+    decoration: BoxDecoration(
+      color: itemInCart ? appGreen.withValues(alpha: .1) : white,
+      borderRadius: borderRadius12,
+      border: Border.all(
+        color: itemInCart ? appGreen : black.withValues(alpha: .2),
+      ),
+    ),
+    child: Column(
+      children: [
+        Text(product.imageUrl, style: const TextStyle(fontSize: 64)),
+        const Spacing(of: 4),
+        Text(product.name, style: context.textTheme.titleMedium),
+        const Spacing(of: 4),
+        Text(product.description),
+        const Spacing(of: 8),
+        ValueChip(
+          valueText: product.category,
+          backColor: black.withValues(alpha: .1),
         ),
-      ].toRow(),
-    ].toColumn(spacing: 4).paddingAll(12),
-  ].toColumn().card();
+        const Spacing(of: 8),
+        Text(product.priceText, style: context.textTheme.titleLarge),
+      ],
+    ),
+  );
 }
 ```
 
-**Result:** 40% less code, infinitely more readable! 🎉
+**Result:** Clean, readable code with consistent spacing and styling! 🎉
 
 ---
 
@@ -389,12 +476,13 @@ Widget build(BuildContext context, WidgetRef ref) {
 
 Perfect for teaching:
 
-- Dart language features
+- Dart language features (extension methods)
 - Clean code principles
 - Flutter best practices
-- State management patterns
+- State management patterns (Riverpod)
+- Material Design 3 implementation
 
-[View workshop guide →](TRAINING_GUIDE.md)
+[View workshop guide →](docs/TRAINING_GUIDE.md)
 
 ---
 
@@ -413,14 +501,17 @@ Perfect for teaching:
 2. **Creating fluent APIs** for better readability
 
    ```dart
-   widget.paddingAll(16).card().center
+   Text('Hello').paddingAll(16).center
    ```
 
 3. **Domain-specific helpers** that don't belong in the core type
 
    ```dart
    extension on double {
-     String get toCurrency => '\$${toStringAsFixed(2)}';
+     String get toUSD => NumberFormat.currency(
+       symbol: '\$',
+       decimalDigits: 2,
+     ).format(this);
    }
    ```
 
@@ -497,7 +588,8 @@ This is a training project! Contributions welcome:
 
 ## 🎉 Key Takeaways
 
-> **Extensions aren't just syntactic sugar—they're a powerful tool for writing better, more maintainable Flutter code.**
+> **Extensions aren't just syntactic sugar—they're a powerful tool for
+> writing better, more maintainable Flutter code.**
 
 ### What You've Learned
 
@@ -526,10 +618,14 @@ This is a training project! Contributions welcome:
 
 ### Additional Resources
 
-- **[Official Dart Documentation](https://dart.dev/language/extension-methods)** - Comprehensive reference
-- **[dartx Package](https://pub.dev/packages/dartx)** - 50+ production-ready extensions
-- **[Flutter Extensions Video](https://youtu.be/D3j0OSfT9ZI)** - Visual walkthrough
-- **[Dart Blog Post](https://medium.com/dartlang/extension-methods-2d466cd8b308)** - Deep dive by language designer
+- **[Official Dart Documentation](https://dart.dev/language/extension-methods)**
+  \- Comprehensive reference
+- **[dartx Package](https://pub.dev/packages/dartx)** - 50+
+  production-ready extensions
+- **[Flutter Extensions Video](https://youtu.be/D3j0OSfT9ZI)** - Visual
+  walkthrough
+- **[Dart Blog Post](https://medium.com/dartlang/extension-methods-2d466cd8b308)**
+  \- Deep dive by language designer
 
 ---
 
@@ -548,10 +644,12 @@ This is an educational project! Contributions are welcome:
 
 ## 📄 License
 
-MIT License - Feel free to use this project for learning and training purposes.
+MIT License - Feel free to use this project for learning and training
+purposes.
 
 ---
 
-**Ready to master Dart extensions?** Clone the repo, run the app, and start your journey! 🚀
+**Ready to master Dart extensions?** Clone the repo, run the app, and
+start your journey! 🚀
 
 Made with ❤️ for Flutter developers who want to write cleaner code.
