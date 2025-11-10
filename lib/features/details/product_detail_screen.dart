@@ -50,7 +50,7 @@ class ProductDetailScreen extends ConsumerWidget {
                 const Spacing(of: spacing32),
 
                 // Description section
-                const StringTitle(labelText: 'Product Description'),
+                StringTitle(labelText: 'Product Description'.inSnakeCase),
 
                 const Spacing(of: spacing12),
 
@@ -75,6 +75,32 @@ class ProductDetailScreen extends ConsumerWidget {
 
                 // Product details grid
                 const StringTitle(labelText: 'Details'),
+
+                const Spacing(of: spacing32),
+
+                // Compare with function-based approach
+                Text(
+                  '🆚 Extensions vs Functions Comparison',
+                  style: boldTextStyle.copyWith(
+                    fontSize: fontSize18,
+                    color: context.colorScheme.error,
+                  ),
+                ),
+
+                const Spacing(of: spacing8),
+
+                Text(
+                  'The widget below demonstrates the traditional function-based approach. '
+                  'Notice how it produces the same output but requires more verbose code '
+                  'and lacks the natural chaining capability of extensions.',
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: context.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+
+                const Spacing(of: spacing12),
+
+                const StringFunctionsTitle(labelText: 'Specifications'),
 
                 const Spacing(of: spacing12),
                 DetailsGrid(product: product),

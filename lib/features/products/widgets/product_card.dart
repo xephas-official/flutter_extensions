@@ -103,7 +103,7 @@ class ProductCard extends ConsumerWidget {
 
                     // Price
                     Text(
-                      product.priceText,
+                      product.price.toPercent,
                       style: context.textTheme.titleLarge
                           ?.copyWith(
                             color: itemInCart

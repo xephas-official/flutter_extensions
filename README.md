@@ -169,6 +169,34 @@ flutter run
 - 🎭 **Context Extensions** - Theme, MediaQuery, navigation shortcuts
 - 🧩 **Widget Extensions** - Padding, layout wrappers, fluent composition
 
+### 🆚 Extensions vs Functions Comparison
+
+This project includes **both implementations** to demonstrate why extensions
+are superior to traditional functions:
+
+- **`string_extensions.dart`** - Extension-based approach (clean & chainable)
+- **`string_functions.dart`** - Function-based approach (verbose & repetitive)
+
+The app includes side-by-side widgets (`StringTitle` vs
+`StringFunctionsTitle`) to visually compare both approaches. See the
+difference in practice:
+
+```dart
+// ❌ Function approach - Must pass parameters, hard to chain
+final result = addQuotes(toTitleCase(toSnakeCase('hello world')));
+
+// ✅ Extension approach - Natural chaining, left-to-right reading
+final result = 'hello world'.inSnakeCase.inTitleCase.withQuotes;
+```
+
+**Function Disadvantages:**
+
+- Must pass string as parameter to every function
+- Cannot chain operations naturally
+- Less discoverable (no IDE autocomplete)
+- More verbose and repetitive
+- Breaks natural reading flow
+
 ---
 
 ## ✨ Extension Showcase

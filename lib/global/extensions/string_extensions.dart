@@ -24,6 +24,12 @@ extension StringExtensions on String {
         words.skip(1).map((w) => w.capitalize).join();
   }
 
+  /// is "FlutterconKE"
+  /// checks if a string is flutterconke
+  bool get isFlutterconKE {
+    return toLowerCase() == 'flutterconke';
+  }
+
   /// Converts a string to CONSTANT_CASE (uppercase with underscores).
   ///
   /// Example:
@@ -386,7 +392,7 @@ extension StringExtensions on String {
         convertedValue = withQuotes;
       case 'initials':
         convertedValue = asInitials;
-        case 'as list':
+      case 'as list':
         convertedValue = asList.toString();
       default:
         convertedValue = this;

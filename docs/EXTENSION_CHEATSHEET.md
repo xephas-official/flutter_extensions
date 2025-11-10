@@ -378,6 +378,60 @@ items.toListView(separator: Divider())
 
 Text manipulation, validation, and formatting.
 
+### Why Extensions Over Functions?
+
+Extensions provide a cleaner, more maintainable API compared to traditional
+functions. Here's why:
+
+```dart
+// ❌ Traditional Function Approach (Verbose & Hard to Chain)
+String processText(String text) {
+  String result = toSnakeCase(text);
+  result = toTitleCase(result);
+  result = addQuotes(result);
+  return result;
+}
+
+// Or with nested calls (Hard to Read)
+final result = addQuotes(toTitleCase(toSnakeCase(text)));
+
+// ✅ Extension Approach (Clean & Chainable)
+final result = text.inSnakeCase.inTitleCase.withQuotes;
+```
+
+**Function Disadvantages:**
+
+- ❌ Must pass string as parameter to every function
+- ❌ Cannot chain operations naturally
+- ❌ More verbose and repetitive code
+- ❌ Less discoverable (no IDE autocomplete on the string itself)
+- ❌ Breaks natural left-to-right reading flow
+- ❌ Harder to maintain and refactor
+
+**Extension Advantages:**
+
+- ✅ Natural method chaining
+- ✅ IDE autocomplete suggests available methods
+- ✅ Cleaner, more readable code
+- ✅ Follows object-oriented principles
+- ✅ Left-to-right reading matches execution order
+- ✅ Easier to discover and use
+
+**Real Example Comparison:**
+
+```dart
+// ❌ Function approach - 3 function calls, passing parameter each time
+final formatted1 = toUpperCaseWithSpaces('string functions');
+final formatted2 = toSnakeCase('hello world');
+final formatted3 = addQuotes(formatted2);
+
+// ✅ Extension approach - clean and chainable
+final formatted1 = 'string functions'.inUpperCase;
+final formatted2 = 'hello world'.inSnakeCase;
+final formatted3 = formatted2.withQuotes;
+// Or chain them: 'hello world'.inSnakeCase.withQuotes;
+```
+
 ### Case Conversion
 
 ```dart

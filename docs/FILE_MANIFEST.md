@@ -26,6 +26,7 @@ This document lists all the files created for your Flutter Extensions training p
 - ✅ `widget_extensions.dart` - Widget wrappers and modifiers
 - ✅ `num_extensions.dart` - Number utilities (spacing, currency, etc.)
 - ✅ `string_extensions.dart` - String manipulation and case conversion
+- ✅ `string_functions.dart` - Traditional function-based approach (comparison)
 - ✅ `list_extensions.dart` - List and `List<Widget>` helpers
 - ✅ `color_extensions.dart` - Color utilities and HEX conversion
 - ✅ `date_extensions.dart` - DateTime formatting and manipulation
@@ -47,6 +48,7 @@ This document lists all the files created for your Flutter Extensions training p
 - ✅ `value_chip.dart` - Category chip widget
 - ✅ `num_title.dart` - Number extension demo widget
 - ✅ `string_title.dart` - String extension demo widget
+- ✅ `string_functions_title.dart` - Function-based approach demo widget
 - ✅ `color_title.dart` - Color extension demo widget
 - ✅ `date_title.dart` - Date extension demo widget
 - ✅ `bool_title.dart` - Bool extension demo widget
