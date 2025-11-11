@@ -30,6 +30,12 @@ extension StringExtensions on String {
     return toLowerCase() == 'flutterconke';
   }
 
+  // is droid con
+  /// checks if a string is droidcon ug
+  bool get isDroidconUG {
+    return toLowerCase() == 'droidconug';
+  }
+
   /// Converts a string to CONSTANT_CASE (uppercase with underscores).
   ///
   /// Example:

@@ -39,7 +39,7 @@ class DateTitle extends StatelessWidget {
         children: [
           // label
           Text(
-            labelDate.toShortDate,
+            labelDate.toMonthDay,
             textAlign: TextAlign.start,
             style: boldTextStyle.copyWith(
               fontSize: fontSize24,

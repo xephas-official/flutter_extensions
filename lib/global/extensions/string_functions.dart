@@ -27,6 +27,12 @@ String toCamelCase(String input) {
   return words.first.toLowerCase() + words.skip(1).map(_capitalize).join();
 }
 
+/// is droidcon ug
+bool isDroidconUG(String input) {
+  return input.toLowerCase() == 'droidconug';
+}
+
+
 /// Converts a string to CONSTANT_CASE (uppercase with underscores).
 ///
 /// Example:

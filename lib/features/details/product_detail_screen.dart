@@ -1,4 +1,5 @@
 import '../../app_exporter.dart';
+import '../../global/extensions/string_functions.dart';
 import 'cart_action_button.dart';
 import 'details_grid.dart';
 import 'price_section.dart';
@@ -50,7 +51,7 @@ class ProductDetailScreen extends ConsumerWidget {
                 const Spacing(of: spacing32),
 
                 // Description section
-                StringTitle(labelText: 'Product Description'.inSnakeCase),
+                StringTitle(labelText: 'Product Description'.inLowerCase),
 
                 const Spacing(of: spacing12),
 
@@ -80,7 +81,14 @@ class ProductDetailScreen extends ConsumerWidget {
 
                 // Compare with function-based approach
                 Text(
-                  '🆚 Extensions vs Functions Comparison',
+                  '${isDroidconUG(toTitleCase('🆚 Extensions vs Functions Comparison'))}',
+                  style: boldTextStyle.copyWith(
+                    fontSize: fontSize18,
+                    color: context.colorScheme.error,
+                  ),
+                ),
+                Text(
+                  '${'🆚 Extensions vs Functions Comparison'.inTitleCase.isDroidconUG}',
                   style: boldTextStyle.copyWith(
                     fontSize: fontSize18,
                     color: context.colorScheme.error,

@@ -50,7 +50,7 @@ class ColorTitle extends StatelessWidget {
 
           // label
           Text(
-            labelColor.toHexNoAlpha,
+            black.toRGB,
             textAlign: TextAlign.start,
             style: boldTextStyle.copyWith(
               fontSize: fontSize20,
